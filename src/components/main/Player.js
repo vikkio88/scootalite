@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
+import {Button, Icon} from "react-mdl";
 
 class Player extends Component {
     state = {
@@ -11,6 +12,9 @@ class Player extends Component {
         const {url, playing} = this.state;
         return (
             <div>
+                <Button onClick={() => this.setState({playing: !playing})}>
+                    <Icon style={{fontSize: '30px'}} name={!playing ? 'play_arrow' : 'stop'}/>
+                </Button>
                 <ReactPlayer
                     ref={player => {
                         this.player = player

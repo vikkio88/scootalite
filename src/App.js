@@ -9,9 +9,9 @@ class App extends Component {
                 <div className="App-header">
                     <h2>Scootalite</h2>
                 </div>
-                <p className="App-intro">
+                <div className="App-intro">
                     <Player/>
-                </p>
+                </div>
             </div>
         );
     }
