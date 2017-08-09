@@ -1,27 +1,55 @@
 import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
-import {Button, Icon, Slider} from "react-mdl";
+import {Button, Icon} from "react-mdl";
 
 
 import './Player.css';
 
 class Player extends Component {
+    player = null;
     state = {
         url: 'http://rss.art19.com/episodes/a0bc6544-9833-4975-915a-dbfdfda8316d.mp3',
         playing: false,
         duration: 0,
         progress: 0,
+        played: 0,
+        seeking: false
+    };
+
+    onProgress = state => {
+        if (!this.state.seeking) {
+            this.setState(state);
+        }
+    };
+    onSeekMouseDown = e => {
+        this.setState({seeking: true});
+    };
+    onSeekChange = e => {
+        this.setState({played: parseFloat(e.target.value)});
+    };
+    onSeekMouseUp = e => {
+        this.setState({seeking: false});
+        this.player.seekTo(parseFloat(e.target.value))
     };
 
     render() {
-        const {url, playing, duration, progress} = this.state;
+        const {url, playing, played, duration} = this.state;
         return (
             <div className="player-wrapper">
-                <Slider min={0} max={duration} defaultValue={progress}/>
-                <Button ripple onClick={() => this.setState({playing: !playing})}>
-                    <Icon name={!playing ? 'play_arrow' : 'pause'}/>
-                </Button>
+                <h3 className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</h3>
+                <input
+                    type='range' min={0} max={1} step='any'
+                    value={played}
+                    onMouseDown={this.onSeekMouseDown}
+                    onChange={this.onSeekChange}
+                    onMouseUp={this.onSeekMouseUp}
+                />
+                <div>
+                    <Button ripple onClick={() => this.setState({playing: !playing})}>
+                        <Icon className="player-control" name={!playing ? 'play_arrow' : 'pause'}/>
+                    </Button>
+                </div>
                 <ReactPlayer
                     ref={player => {
                         this.player = player
@@ -32,7 +60,7 @@ class Player extends Component {
                     url={url}
                     playing={playing}
                     onReady={() => console.log('onReady')}
-                    onProgress={progress => this.setState({progress})}
+                    onProgress={this.onProgress}
                     onDuration={duration => this.setState({duration})}
                     onStart={() => console.log('onStart')}
                     onPlay={() => this.setState({playing: true})}
@@ -46,6 +74,6 @@ class Player extends Component {
     }
 }
 
-const durationParse = duration => moment.utc(duration * 1000).format("HH:mm:ss");
+const timeParse = duration => moment.utc(duration * 1000).format("HH:mm:ss");
 
 export {Player};

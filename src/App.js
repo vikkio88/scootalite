@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import './App.css';
 import {Player} from "./components/main/Player";
+
+import './App.css';
+import logo from './resources/images/main-logo.svg';
+
 
 class App extends Component {
     render() {
         return (
             <div className="App">
                 <div className="App-header">
-                    <h2>Scootalite</h2>
+                    <img src={logo} style={{height: '80px'}}/>
                 </div>
                 <div className="App-intro">
                     <Player/>
