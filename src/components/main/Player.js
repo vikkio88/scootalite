@@ -1,19 +1,26 @@
 import React, {Component} from 'react';
 import ReactPlayer from 'react-player';
-import {Button, Icon} from "react-mdl";
+import moment from 'moment';
+import {Button, Icon, Slider} from "react-mdl";
+
+
+import './Player.css';
 
 class Player extends Component {
     state = {
         url: 'http://rss.art19.com/episodes/a0bc6544-9833-4975-915a-dbfdfda8316d.mp3',
-        playing: false
+        playing: false,
+        duration: 0,
+        progress: 0,
     };
 
     render() {
-        const {url, playing} = this.state;
+        const {url, playing, duration, progress} = this.state;
         return (
-            <div>
-                <Button onClick={() => this.setState({playing: !playing})}>
-                    <Icon style={{fontSize: '30px'}} name={!playing ? 'play_arrow' : 'stop'}/>
+            <div className="player-wrapper">
+                <Slider min={0} max={duration} defaultValue={progress}/>
+                <Button ripple onClick={() => this.setState({playing: !playing})}>
+                    <Icon name={!playing ? 'play_arrow' : 'pause'}/>
                 </Button>
                 <ReactPlayer
                     ref={player => {
@@ -25,6 +32,8 @@ class Player extends Component {
                     url={url}
                     playing={playing}
                     onReady={() => console.log('onReady')}
+                    onProgress={progress => this.setState({progress})}
+                    onDuration={duration => this.setState({duration})}
                     onStart={() => console.log('onStart')}
                     onPlay={() => this.setState({playing: true})}
                     onPause={() => this.setState({playing: false})}
@@ -36,5 +45,7 @@ class Player extends Component {
         );
     }
 }
+
+const durationParse = duration => moment.utc(duration * 1000).format("HH:mm:ss");
 
 export {Player};
