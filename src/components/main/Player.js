@@ -14,7 +14,8 @@ class Player extends Component {
         duration: 0,
         progress: 0,
         played: 0,
-        seeking: false
+        seeking: false,
+        expanded: true
     };
 
     onProgress = state => {
@@ -22,7 +23,7 @@ class Player extends Component {
             this.setState(state);
         }
     };
-    onSeekMouseDown = e => {
+    onSeekMouseDown = () => {
         this.setState({seeking: true});
     };
     onSeekChange = e => {
@@ -32,12 +33,25 @@ class Player extends Component {
         this.setState({seeking: false});
         this.player.seekTo(parseFloat(e.target.value))
     };
+    seek = diff => {
+        const {duration, played} = this.state;
+        this.player.seekTo(parseFloat(duration * played + diff));
+    };
 
     render() {
-        const {url, playing, played, duration} = this.state;
+        const {url, playing, played, duration, expanded} = this.state;
         return (
             <div className="player-wrapper">
-                <h3 className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</h3>
+                <div style={{display: 'flex', flex: 1, justifyContent: 'flex-end'}}>
+                    <Button ripple onClick={() => this.setState({expanded: !expanded})}>
+                        <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
+                    </Button>
+                </div>
+                { expanded &&
+                <div>
+                    <h4 className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</h4>
+                </div>
+                }
                 <input
                     type='range' min={0} max={1} step='any'
                     value={played}
@@ -45,11 +59,20 @@ class Player extends Component {
                     onChange={this.onSeekChange}
                     onMouseUp={this.onSeekMouseUp}
                 />
+                {expanded &&
                 <div>
-                    <Button ripple onClick={() => this.setState({playing: !playing})}>
+                    <Button ripple raised disabled={!playing} onClick={() => this.seek(-10)}>
+                        <Icon className="player-control" name="replay_10"/>
+                    </Button>
+                    <Button ripple raised onClick={() => this.setState({playing: !playing})}>
                         <Icon className="player-control" name={!playing ? 'play_arrow' : 'pause'}/>
                     </Button>
+                    <Button ripple raised disabled={!playing} onClick={() => this.seek(10)}>
+                        <Icon className="player-control" name="forward_10"/>
+                    </Button>
+
                 </div>
+                }
                 <ReactPlayer
                     ref={player => {
                         this.player = player
