@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
 import {Button, Icon} from "react-mdl";
 
+import {selectPodcast} from '../../store/actions';
+
 
 import './Player.css';
 
-class Player extends Component {
+class PlayerView extends Component {
     player = null;
     state = {
-        url: 'http://rss.art19.com/episodes/a0bc6544-9833-4975-915a-dbfdfda8316d.mp3',
         playing: false,
         duration: 0,
         progress: 0,
@@ -54,12 +56,21 @@ class Player extends Component {
     };
 
     render() {
-        const {url, playing, played, duration, expanded} = this.state;
+        const {selectedPodcast} = this.props;
+        const {playing, played, duration, expanded} = this.state;
+
+        if (!selectedPodcast) {
+            return <div/>
+        }
+
         return (
             <div className="player-wrapper">
                 <div style={{display: 'flex', flex: 1, justifyContent: 'flex-end'}}>
                     <Button ripple onClick={() => this.setState({expanded: !expanded})}>
                         <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
+                    </Button>
+                    <Button ripple onClick={() => this.props.stop()}>
+                        <Icon className="player-control" name="close"/>
                     </Button>
                 </div>
                 { expanded &&
@@ -95,7 +106,7 @@ class Player extends Component {
                     className='react-player'
                     width='100%'
                     height='100%'
-                    url={url}
+                    url={selectedPodcast.file_url}
                     playing={playing}
                     onReady={() => console.log('onReady')}
                     onProgress={this.onProgress}
@@ -113,5 +124,25 @@ class Player extends Component {
 }
 
 const timeParse = duration => moment.utc(duration * 1000).format("HH:mm:ss");
+
+const mapStateToProps = ({player}) => {
+    const {selectedPodcast} = player;
+    return {
+        selectedPodcast
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        stop(){
+            dispatch(selectPodcast());
+        }
+    };
+};
+
+const Player = connect(
+    mapStateToProps, mapDispatchToProps
+)(PlayerView);
+
 
 export {Player};
