@@ -18,6 +18,21 @@ class Player extends Component {
         expanded: true
     };
 
+    onPlay = () => {
+        console.log('play');
+        this.setState({playing: true});
+    };
+
+    onPause = () => {
+        console.log('pause');
+        this.setState({playing: false});
+    };
+
+    onEnded = () => {
+        console.log('ended');
+        this.setState({playing: false});
+    };
+
     onProgress = state => {
         if (!this.state.seeking) {
             this.setState(state);
@@ -86,10 +101,10 @@ class Player extends Component {
                     onProgress={this.onProgress}
                     onDuration={duration => this.setState({duration})}
                     onStart={() => console.log('onStart')}
-                    onPlay={() => this.setState({playing: true})}
-                    onPause={() => this.setState({playing: false})}
+                    onPlay={this.onPlay}
+                    onPause={this.onPause}
                     onBuffer={() => console.log('onBuffer')}
-                    onEnded={() => this.setState({playing: false})}
+                    onEnded={this.onEnded}
                     onError={e => console.log('onError', e)}
                 />
             </div>
