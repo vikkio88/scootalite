@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import {Card, CardActions, CardTitle} from 'react-mdl';
 
+import {withRouter} from 'react-router-dom';
 
-class ShowCard extends Component {
+
+class ShowCardView extends Component {
     render() {
-        const {show} = this.props;
+        const {show, history} = this.props;
         return (
             <Card
                 shadow={1}
-                onClick={() => console.log('clicked')}
+                onClick={() => history.push(`/shows/${show.slug}`)}
                 style={{
                     width: '256px',
                     height: '256px',
@@ -37,5 +39,5 @@ class ShowCard extends Component {
     }
 }
 
-
+const ShowCard = withRouter(ShowCardView);
 export {ShowCard};

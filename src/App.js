@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
+import {
+    BrowserRouter as Router,
+    Route
+} from 'react-router-dom'
+
 import {Player} from './components/player';
 import {TrendingShows} from './components/views';
 
@@ -18,7 +23,9 @@ class App extends Component {
                     </div>
                     <div>
                         <Player/>
-                        <TrendingShows />
+                        <Router>
+                            <Route exact path="/" component={TrendingShows}/>
+                        </Router>
                     </div>
                 </div>
             </Provider>
