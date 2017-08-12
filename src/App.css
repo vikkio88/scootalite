@@ -1,11 +1,12 @@
-.App {
+.app {
     text-align: center;
     display: flex;
     align-content: center;
     flex-direction: column;
 }
 
-.App-header {
+.app-header {
+    padding: 5px;
     background-color: #eeeeee;
     color: white;
 }

@@ -2,9 +2,11 @@ import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 
 import player from './reducers/player';
+import podcasts from './reducers/podcasts';
 
 const reducers = combineReducers({
-    player
+    player,
+    podcasts
 });
 
 
