@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {ListItem, ListItemContent} from 'react-mdl';
+import {Icon} from 'react-mdl';
 
 import {selectPodcast} from '../../store/actions';
 
@@ -24,19 +24,24 @@ class PodcastListItemView extends Component {
 
     render() {
         const {podcast} = this.props;
+        //{`${this.isSelected() ? 'stop' : 'play_arrow'}`}
         return (
-            <ListItem
+            <div
                 onClick={this.select}
-                threeLine
                 className={`podcast-list-item ${this.isSelected() ? 'selected-podcast' : ''}`}
             >
-                <ListItemContent
-                    avatar={`${this.isSelected() ? 'stop' : 'play_arrow'}`}
-                    subtitle={podcast.description}
-                >
-                    {podcast.name}
-                </ListItemContent>
-            </ListItem>
+                <div className="podcast-list-item-icon-container">
+                    <Icon name={`${this.isSelected() ? 'stop' : 'play_arrow'}`} style={{fontSize: '30px'}}/>
+                </div>
+                <div className="podcast-list-item-text-container">
+                    <h5>
+                        {podcast.name}
+                    </h5>
+                    <p>
+                        {podcast.description}
+                    </p>
+                </div>
+            </div>
         )
     }
 }
