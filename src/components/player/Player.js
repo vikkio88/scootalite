@@ -12,7 +12,7 @@ import './Player.css';
 class PlayerView extends Component {
     player = null;
     state = {
-        playing: false,
+        playing: true,
         duration: 0,
         progress: 0,
         played: 0,
