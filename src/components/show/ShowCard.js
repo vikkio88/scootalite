@@ -26,7 +26,7 @@ class ShowCard extends Component {
                 >
                     <span
                         style={{
-                            color: '#fff', fontSize: '14px', fontWeight: '500'
+                            color: '#fff', fontSize: '14px', fontWeight: '500', textShadow: '2px 1px 2px black'
                         }}
                     >
                         {show.name}
