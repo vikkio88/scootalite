@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Card, CardMenu, CardText, CardTitle, IconButton} from 'react-mdl';
+import {Card, CardMenu, CardText, CardTitle, IconButton, List} from 'react-mdl';
+import {PodcastListItem as PodcastListItem} from "../podcast";
 
 
 class ShowDetails extends Component {
@@ -7,7 +8,7 @@ class ShowDetails extends Component {
         const {show} = this.props;
         return (
             <div>
-                <Card shadow={0} style={{width: '90%', margin: 'auto'}}>
+                <Card shadow={1} style={{width: '100%', margin: 'auto'}}>
                     <CardTitle style={{
                         color: '#fff',
                         textShadow: '2px 1px 2px black',
@@ -21,13 +22,21 @@ class ShowDetails extends Component {
                         <IconButton name="share"/>
                     </CardMenu>
                 </Card>
-                {this._renderPodcasts()}
+                <h4>Podcasts</h4>
+                <List>
+                    {this._renderPodcasts()}
+                </List>
             </div>
         );
     }
 
     _renderPodcasts() {
+        const {show} = this.props;
+        if (!show || !show.podcasts.length) {
+            return <p>No podcasts</p>
+        }
 
+        return show.podcasts.map(p => <PodcastListItem podcast={p}/>)
     }
 }
 
