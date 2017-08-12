@@ -34,7 +34,8 @@ class PodcastListItemView extends Component {
                 className={`podcast-list-item ${this.isSelected() ? 'selected-podcast' : ''}`}
             >
                 <div className="podcast-list-item-icon-container">
-                    <Icon name={`${this.isSelected() ? 'stop' : 'play_arrow'}`} style={{fontSize: '30px'}}/>
+                    <Icon name={`${this.isSelected() ? 'stop' : 'play_arrow'}`}
+                          style={!this.isSelected() ? {color: '#ff815a'} : {}}/>
                 </div>
                 <div className="podcast-list-item-text-container">
                     <h5>

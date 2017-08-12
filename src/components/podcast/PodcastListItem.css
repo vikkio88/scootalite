@@ -12,6 +12,10 @@
     margin: auto;
 }
 
+.podcast-list-item-icon-container i {
+    font-size: 30px;
+}
+
 .podcast-list-item-text-container {
     margin-left: 15px;
     flex: 7;
