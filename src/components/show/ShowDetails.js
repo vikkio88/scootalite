@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardMenu, CardText, CardTitle, IconButton, List} from 'react-mdl';
-import {PodcastListItem as PodcastListItem} from "../podcast";
+import {PodcastListItem} from "../podcast";
 
 
 class ShowDetails extends Component {
@@ -14,7 +14,9 @@ class ShowDetails extends Component {
                         textShadow: '2px 1px 2px black',
                         height: '300px',
                         background: `url(${show.logo_url}) center / cover`,
-                    }}>{show.name}</CardTitle>
+                    }}>
+                        {show.name}
+                    </CardTitle>
                     <CardText>
                         {show.description}
                     </CardText>
@@ -36,7 +38,7 @@ class ShowDetails extends Component {
             return <p>No podcasts</p>
         }
 
-        return show.podcasts.map(p => <PodcastListItem podcast={p}/>)
+        return show.podcasts.map(p => <PodcastListItem key={p.id} podcast={p}/>)
     }
 }
 

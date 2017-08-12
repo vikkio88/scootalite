@@ -21,8 +21,8 @@ class App extends Component {
                     <div className="app-header">
                         <img src={logo} style={{height: '80px'}} alt="scootalite logo"/>
                     </div>
+                    <Player/>
                     <div className="app-body">
-                        <Player/>
                         <Router>
                             <div>
                                 <Route exact path="/" component={TrendingShows}/>

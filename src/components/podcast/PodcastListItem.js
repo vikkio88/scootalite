@@ -1,24 +1,68 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Icon, ListItem, ListItemAction, ListItemContent} from 'react-mdl';
+
+import {selectPodcast} from '../../store/actions';
 
 import './PodcastListItem.css';
 
-class PodcastListItem extends Component {
+class PodcastListItemView extends Component {
+    isSelected = () => {
+        const {podcast, selectedPodcast} = this.props;
+        return selectedPodcast && selectedPodcast.id === podcast.id;
+    };
+
+    select = () => {
+        const {select, deselect, podcast} = this.props;
+        if (this.isSelected()) {
+            deselect();
+        } else {
+            select(podcast);
+        }
+
+    };
+
     render() {
         const {podcast} = this.props;
         return (
-            <ListItem threeLine className="podcast-list-item">
+            <ListItem
+                onClick={this.select}
+                threeLine
+                className={`podcast-list-item ${this.isSelected() ? 'selected-podcast' : ''}`}
+            >
                 <ListItemContent
+                    avatar={`${this.isSelected() ? 'stop' : 'play_arrow'}`}
                     subtitle={podcast.description}
                 >
                     {podcast.name}
                 </ListItemContent>
-                <ListItemAction>
-                    <a href="#"><Icon name="play_arrow"/></a>
-                </ListItemAction>
             </ListItem>
         )
     }
 }
+
+const mapStateToProps = ({player}) => {
+    const {selectedPodcast} = player;
+    return {
+        selectedPodcast
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        select(podcast){
+            dispatch(selectPodcast(podcast));
+        },
+        deselect(){
+            dispatch(selectPodcast());
+        },
+
+    };
+};
+
+const PodcastListItem = connect(
+    mapStateToProps, mapDispatchToProps
+)(PodcastListItemView);
+
 
 export {PodcastListItem};
