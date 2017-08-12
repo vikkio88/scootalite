@@ -17,26 +17,32 @@ class PlayerView extends Component {
         progress: 0,
         played: 0,
         seeking: false,
-        expanded: true
+        expanded: true,
+        originalTitle: null
     };
 
     stop = () => {
         this.setState({playing: false});
+        document.title = this.state.originalTitle;
         this.props.stop();
     };
 
     onPlay = () => {
-        console.log('play');
-        this.setState({playing: true});
+        const newState = {playing: true};
+        if (!this.state.originalTitle) {
+            newState.originalTitle = document.title;
+        }
+        document.title = `► - ${this.props.selectedPodcast.name}`;
+        this.setState(newState);
     };
 
     onPause = () => {
-        console.log('pause');
+        document.title = `■ - ${this.props.selectedPodcast.name}`;
         this.setState({playing: false});
     };
 
     onEnded = () => {
-        console.log('ended');
+        document.title = this.state.originalTitle;
         this.setState({playing: false});
     };
 
