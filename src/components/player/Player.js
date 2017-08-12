@@ -63,8 +63,6 @@ class PlayerView extends Component {
     render() {
         const {selectedPodcast} = this.props;
         const {playing, played, duration, expanded} = this.state;
-
-        console.log(selectedPodcast);
         if (!selectedPodcast) {
             return <div/>
         }
