@@ -20,6 +20,11 @@ class PlayerView extends Component {
         expanded: true
     };
 
+    stop = () => {
+        this.setState({playing: false});
+        this.props.stop();
+    };
+
     onPlay = () => {
         console.log('play');
         this.setState({playing: true});
@@ -40,13 +45,13 @@ class PlayerView extends Component {
             this.setState(state);
         }
     };
-    onSeekMouseDown = () => {
+    onSeekStart = () => {
         this.setState({seeking: true});
     };
     onSeekChange = e => {
         this.setState({played: parseFloat(e.target.value)});
     };
-    onSeekMouseUp = e => {
+    onSeekStop = e => {
         this.setState({seeking: false});
         this.player.seekTo(parseFloat(e.target.value))
     };
@@ -69,7 +74,7 @@ class PlayerView extends Component {
                     <Button ripple onClick={() => this.setState({expanded: !expanded})}>
                         <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
                     </Button>
-                    <Button ripple onClick={() => this.props.stop()}>
+                    <Button ripple onClick={this.stop}>
                         <Icon className="player-control" name="close"/>
                     </Button>
                 </div>
@@ -81,9 +86,11 @@ class PlayerView extends Component {
                 <input
                     type='range' min={0} max={1} step='any'
                     value={played}
-                    onMouseDown={this.onSeekMouseDown}
+                    onMouseDown={this.onSeekStart}
+                    onTouchStart={this.onSeekStart}
                     onChange={this.onSeekChange}
-                    onMouseUp={this.onSeekMouseUp}
+                    onMouseUp={this.onSeekStop}
+                    onTouchEnd={this.onSeekStop}
                 />
                 {expanded &&
                 <div>
