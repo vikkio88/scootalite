@@ -1,15 +1,30 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {ShowCard} from "../show";
-import {Cell, Grid} from 'react-mdl';
+import {ShowCard} from '../show';
+import {Cell, Grid, Spinner} from 'react-mdl';
+
+import {removeFetchTrends} from '../../store/actions';
 
 
 class TrendingShowsView extends Component {
-    _renderShowCards() {
+    componentWillMount() {
+        this.props.removeFetchTrends();
+    }
+
+    _renderBody() {
         const {trendingShows} = this.props;
         if (!trendingShows.length) {
-            return <div>No shows found</div>;
+            return <Spinner />;
         }
+
+        return (
+            <Grid>
+                {this._renderShowCards(trendingShows)}
+            </Grid>
+        )
+    }
+
+    _renderShowCards(trendingShows) {
         return trendingShows.map(s => (
             <Cell col={4} key={s.id}>
                 <ShowCard show={s}/>
@@ -21,9 +36,7 @@ class TrendingShowsView extends Component {
         return (
             <div>
                 <div style={{width: '80%', margin: 'auto'}}>
-                    <Grid>
-                        {this._renderShowCards()}
-                    </Grid>
+                    {this._renderBody()}
                 </div>
             </div>
         )
@@ -38,7 +51,11 @@ const mapStateToProps = ({podcasts}) => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+        removeFetchTrends(){
+            dispatch(removeFetchTrends())
+        }
+    };
 };
 
 const TrendingShows = connect(

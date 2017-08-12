@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 
 import {Player} from './components/player';
-import {TrendingShows} from './components/views';
+import {TrendingShows, Show} from './components/views';
 
 import './App.css';
 import logo from './resources/images/main-logo.svg';
@@ -21,10 +21,13 @@ class App extends Component {
                     <div className="app-header">
                         <img src={logo} style={{height: '80px'}} alt="scootalite logo"/>
                     </div>
-                    <div>
+                    <div className="app-body">
                         <Player/>
                         <Router>
-                            <Route exact path="/" component={TrendingShows}/>
+                            <div>
+                                <Route exact path="/" component={TrendingShows}/>
+                                <Route path="/shows/:slug" component={Show}/>
+                            </div>
                         </Router>
                     </div>
                 </div>
