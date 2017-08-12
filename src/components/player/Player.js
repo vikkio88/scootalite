@@ -64,23 +64,30 @@ class PlayerView extends Component {
         const {selectedPodcast} = this.props;
         const {playing, played, duration, expanded} = this.state;
 
+        console.log(selectedPodcast);
         if (!selectedPodcast) {
             return <div/>
         }
 
         return (
             <div className="player-wrapper">
-                <div style={{display: 'flex', flex: 1, justifyContent: 'flex-end'}}>
-                    <Button ripple onClick={() => this.setState({expanded: !expanded})}>
-                        <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
-                    </Button>
-                    <Button ripple onClick={this.stop}>
-                        <Icon className="player-control" name="close"/>
-                    </Button>
+                <div className="player-head">
+                    <div className="player-head-title">
+                        {!expanded ? `${selectedPodcast.show.name} - ${selectedPodcast.name}` : ''}
+                    </div>
+                    <div className="player-head-actions">
+                        <a onClick={() => this.setState({expanded: !expanded})}>
+                            <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
+                        </a>
+                        <a onClick={this.stop}>
+                            <Icon className="player-control" name="close"/>
+                        </a>
+                    </div>
                 </div>
                 { expanded &&
-                <div>
-                    <h4 className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</h4>
+                <div className="podcast-info">
+                    <p className="podcast-title">{`${selectedPodcast.show.name} - ${selectedPodcast.name}`}</p>
+                    <p className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</p>
                 </div>
                 }
                 <input

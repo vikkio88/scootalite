@@ -13,10 +13,14 @@ class PodcastListItemView extends Component {
     };
 
     select = () => {
-        const {select, deselect, podcast} = this.props;
+        const {select, deselect, podcast, show} = this.props;
         if (this.isSelected()) {
             deselect();
         } else {
+            podcast.show = {
+                ...show,
+                podcasts: []
+            };
             select(podcast);
         }
 
@@ -24,7 +28,6 @@ class PodcastListItemView extends Component {
 
     render() {
         const {podcast} = this.props;
-        //{`${this.isSelected() ? 'stop' : 'play_arrow'}`}
         return (
             <div
                 onClick={this.select}
@@ -46,10 +49,12 @@ class PodcastListItemView extends Component {
     }
 }
 
-const mapStateToProps = ({player}) => {
+const mapStateToProps = ({player, podcasts}) => {
     const {selectedPodcast} = player;
+    const {show} = podcasts;
     return {
-        selectedPodcast
+        selectedPodcast,
+        show
     };
 };
 
