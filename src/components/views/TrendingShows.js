@@ -35,7 +35,7 @@ class TrendingShowsView extends Component {
     render() {
         return (
             <div>
-                <div style={{width: '80%', margin: 'auto'}}>
+                <div>
                     {this._renderBody()}
                 </div>
             </div>
