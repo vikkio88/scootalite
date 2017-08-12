@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import {removeFetchShow} from '../../store/actions';
 import {Spinner} from 'react-mdl';
+import {ShowDetails} from '../show';
 
 
 class ShowView extends Component {
@@ -18,7 +19,7 @@ class ShowView extends Component {
         }
 
         return (
-            JSON.stringify(show)
+            <ShowDetails show={show}/>
         );
     }
 
