@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Icon, ListItem, ListItemAction, ListItemContent} from 'react-mdl';
+import {ListItem, ListItemContent} from 'react-mdl';
 
 import {selectPodcast} from '../../store/actions';
 
