@@ -5,6 +5,7 @@ import {
     Route,
     Link
 } from 'react-router-dom'
+import {Content, Header, HeaderRow, Layout} from 'react-mdl';
 
 import {Player} from './components/player';
 import {TrendingShows, Show} from './components/views';
@@ -19,20 +20,31 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <Router>
-                    <div className="app">
-                        <div className="app-header">
-                            <Link to="/">
-                                <img src={logo} style={{height: '80px'}} alt="scootalite logo"/>
-                            </Link>
-                        </div>
+                    <Layout fixedHeader>
+                        <Header style={{backgroundColor: '#eeeeee'}}>
+                            <HeaderRow
+                                title={<Link to="/">
+                                    <img src={logo} style={{height: '50px'}} alt="scootalite logo"/>
+                                </Link>}
+                            >
+                                {/*
+                                 <Navigation>
+                                 <a href="#">Link</a>
+                                 <a href="#">Link</a>
+                                 <a href="#">Link</a>
+                                 <a href="#">Link</a>
+                                 </Navigation>
+                                 */}
+                            </HeaderRow>
+                        </Header>
                         <Player/>
-                        <div className="app-body">
-                            <div>
+                        <Content className="app-body">
+                            <div className="app-content">
                                 <Route exact path="/" component={TrendingShows}/>
                                 <Route path="/shows/:slug" component={Show}/>
                             </div>
-                        </div>
-                    </div>
+                        </Content>
+                    </Layout>
                 </Router>
             </Provider>
         );

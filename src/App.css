@@ -13,6 +13,16 @@
 
 .app-body {
     padding: 10px;
-    max-width: 1000px;
     margin: 10px auto auto;
+}
+
+.app-content {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+@media screen and (max-width: 780px) {
+    .app-content {
+        padding: 10px;
+    }
 }

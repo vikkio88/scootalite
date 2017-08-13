@@ -125,8 +125,8 @@ class PlayerView extends Component {
                         this.player = player
                     }}
                     className='react-player'
-                    width='100%'
-                    height='100%'
+                    width='0'
+                    height='0'
                     url={selectedPodcast.file_url}
                     playing={playing}
                     onReady={() => console.log('onReady')}
