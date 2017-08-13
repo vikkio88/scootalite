@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import moment from 'moment';
 import {Button, Icon} from "react-mdl";
 
-import {selectPodcast} from '../../store/actions';
+import {play, stop, pause} from '../../store/actions';
 
 
 import './Player.css';
@@ -12,7 +12,6 @@ import './Player.css';
 class PlayerView extends Component {
     player = null;
     state = {
-        playing: true,
         duration: 0,
         progress: 0,
         played: 0,
@@ -21,29 +20,33 @@ class PlayerView extends Component {
         originalTitle: null
     };
 
+    togglePlay = () => {
+        const {playing, play, pause} = this.props;
+        if (playing) {
+            pause();
+        } else {
+            play();
+        }
+    };
+
+    play = () => {
+        this.props.play();
+    };
+
     stop = () => {
-        this.setState({playing: false});
-        document.title = this.state.originalTitle;
         this.props.stop();
     };
 
     onPlay = () => {
-        const newState = {playing: true};
-        if (!this.state.originalTitle) {
-            newState.originalTitle = document.title;
-        }
-        document.title = `► - ${this.props.selectedPodcast.name}`;
-        this.setState(newState);
+        this.props.play();
     };
 
     onPause = () => {
-        document.title = `■ - ${this.props.selectedPodcast.name}`;
-        this.setState({playing: false});
+        this.props.pause();
     };
 
     onEnded = () => {
-        document.title = this.state.originalTitle;
-        this.setState({playing: false});
+        this.props.pause();
     };
 
     onProgress = state => {
@@ -67,8 +70,8 @@ class PlayerView extends Component {
     };
 
     render() {
-        const {selectedPodcast} = this.props;
-        const {playing, played, duration, expanded} = this.state;
+        const {selectedPodcast, playing} = this.props;
+        const {played, duration, expanded} = this.state;
         if (!selectedPodcast) {
             return <div/>
         }
@@ -108,7 +111,7 @@ class PlayerView extends Component {
                     <Button ripple raised disabled={!playing} onClick={() => this.seek(-10)}>
                         <Icon className="player-control" name="replay_10"/>
                     </Button>
-                    <Button ripple raised onClick={() => this.setState({playing: !playing})}>
+                    <Button ripple raised onClick={this.togglePlay}>
                         <Icon className="player-control" name={!playing ? 'play_arrow' : 'pause'}/>
                     </Button>
                     <Button ripple raised disabled={!playing} onClick={() => this.seek(10)}>
@@ -144,17 +147,24 @@ class PlayerView extends Component {
 const timeParse = duration => moment.utc(duration * 1000).format("HH:mm:ss");
 
 const mapStateToProps = ({player}) => {
-    const {selectedPodcast} = player;
+    const {selectedPodcast, playing} = player;
     return {
-        selectedPodcast
+        selectedPodcast,
+        playing
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        play(){
+            dispatch(play());
+        },
+        pause(){
+            dispatch(pause());
+        },
         stop(){
-            dispatch(selectPodcast());
-        }
+            dispatch(stop());
+        },
     };
 };
 

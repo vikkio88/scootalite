@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Icon} from 'react-mdl';
 
-import {selectPodcast} from '../../store/actions';
+import {selectPodcast, stop} from '../../store/actions';
 
 import './PodcastListItem.css';
 
@@ -65,7 +65,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(selectPodcast(podcast));
         },
         deselect(){
-            dispatch(selectPodcast());
+            dispatch(stop());
         },
 
     };
