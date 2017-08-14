@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import {ShowCard} from '../show';
 import {Cell, Grid, Spinner} from 'react-mdl';
 
-import {removeFetchTrends} from '../../store/actions';
+import {remoteFetchTrends} from '../../store/actions';
 
 
 class TrendingShowsView extends Component {
     componentWillMount() {
-        this.props.removeFetchTrends();
+        this.props.remoteFetchTrends();
     }
 
     _renderBody() {
@@ -52,8 +52,8 @@ const mapStateToProps = ({podcasts}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        removeFetchTrends(){
-            dispatch(removeFetchTrends())
+        remoteFetchTrends(){
+            dispatch(remoteFetchTrends())
         }
     };
 };
