@@ -12,6 +12,10 @@ class ShowView extends Component {
         remoteFetchShow(match.params.slug)
     }
 
+    componentWillUnmount() {
+        //TODO deselect show in here
+    }
+
     _renderBody() {
         const {show} = this.props;
         if (!show) {
