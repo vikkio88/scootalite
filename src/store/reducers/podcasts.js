@@ -1,4 +1,4 @@
-import {FETCH_TRENDS_SUCCESS, FETCH_SHOW_SUCCESS} from '../actions';
+import {FETCH_TRENDS_SUCCESS, FETCH_SHOW_SUCCESS, FETCH_MORE_PODCASTS_SUCCESS} from '../actions';
 
 const initialState = {
     show: null,
@@ -12,6 +12,15 @@ export default function podcasts(state = initialState, action = {}) {
             return {
                 ...state,
                 ...action.data
+            };
+        case FETCH_MORE_PODCASTS_SUCCESS:
+            const podcasts = [...state.show.podcasts, ...action.data];
+            return {
+                ...state,
+                show: {
+                    ...state.show,
+                    podcasts
+                }
             };
         default:
             return state;

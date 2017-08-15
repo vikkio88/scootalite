@@ -1,9 +1,36 @@
 import React, {Component} from 'react';
-import {Card, CardMenu, CardText, CardTitle, IconButton, List} from 'react-mdl';
+import {connect} from 'react-redux';
+import {Button, Card, CardMenu, CardText, CardTitle, IconButton, List} from 'react-mdl';
 import {PodcastListItem} from "../podcast";
 
+import {remoteFetchMorePodcasts} from '../../store/actions';
 
-class ShowDetails extends Component {
+
+class ShowDetailsView extends Component {
+    state = {
+        page: 1
+    };
+
+    morePodcasts = () => {
+        const page = this.state.page + 1;
+        this.props.morePodcasts(this.props.show.id, page);
+        this.setState({page});
+    };
+
+    _renderPodcasts() {
+        const {show} = this.props;
+        if (!show || !show.podcasts.length) {
+            return <p>No podcasts</p>
+        }
+        return show.podcasts.map(p => <PodcastListItem key={p.id} podcast={p}/>)
+    }
+
+    _renderMoreButton() {
+        if (this.props.show.podcasts.length && this.state.page >= 1) {
+            return <Button ripple raised onClick={this.morePodcasts}>More</Button>
+        }
+    }
+
     render() {
         const {show} = this.props;
         return (
@@ -27,19 +54,29 @@ class ShowDetails extends Component {
                 <h4>Podcasts</h4>
                 <List>
                     {this._renderPodcasts()}
+                    {this._renderMoreButton()}
                 </List>
             </div>
         );
     }
-
-    _renderPodcasts() {
-        const {show} = this.props;
-        if (!show || !show.podcasts.length) {
-            return <p>No podcasts</p>
-        }
-
-        return show.podcasts.map(p => <PodcastListItem key={p.id} podcast={p}/>)
-    }
 }
+const mapStateToProps = ({podcasts}) => {
+    const {show} = podcasts;
+    return {
+        show
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        morePodcasts(id, page) {
+            dispatch(remoteFetchMorePodcasts(id, page));
+        }
+    };
+};
+
+const ShowDetails = connect(
+    mapStateToProps, mapDispatchToProps
+)(ShowDetailsView);
 
 export {ShowDetails};
