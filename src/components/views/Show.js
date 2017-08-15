@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {remoteFetchShow} from '../../store/actions';
+import {remoteFetchShow, resetShow} from '../../store/actions';
 import {Spinner} from 'react-mdl';
 import {ShowDetails} from '../show';
 
@@ -13,7 +13,7 @@ class ShowView extends Component {
     }
 
     componentWillUnmount() {
-        //TODO deselect show in here
+        this.props.resetShow();
     }
 
     _renderBody() {
@@ -45,8 +45,11 @@ const mapStateToProps = ({podcasts}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        remoteFetchShow(slug){
-            dispatch(remoteFetchShow(slug))
+        remoteFetchShow(slug) {
+            dispatch(remoteFetchShow(slug));
+        },
+        resetShow() {
+            dispatch(resetShow());
         }
     };
 };

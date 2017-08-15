@@ -24,6 +24,9 @@ export const remoteFetchShow = slug => {
     }
 };
 
+export const resetShow = () => {
+    return fetchShowSuccess({show: null});
+};
 
 export const fetchShowSuccess = data => {
     return {

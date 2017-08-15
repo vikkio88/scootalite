@@ -19,13 +19,13 @@ class TrendingShowsView extends Component {
 
         return (
             <Grid>
-                {this._renderShowCards(trendingShows)}
+                {this._renderShowCards()}
             </Grid>
         )
     }
 
-    _renderShowCards(trendingShows) {
-        return trendingShows.map(s => (
+    _renderShowCards() {
+        return this.props.trendingShows.map(s => (
             <Cell col={4} key={s.id}>
                 <ShowCard show={s}/>
             </Cell>
