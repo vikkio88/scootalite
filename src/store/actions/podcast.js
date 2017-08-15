@@ -25,7 +25,7 @@ export const remoteFetchShow = slug => {
     }
 };
 
-export const remoteRefreshFeed = url => {
+export const remoteParseFeed = url => {
     return dispatch => {
         services.show.parse(url)
             .then(show => dispatch(fetchShowSuccess({show})));

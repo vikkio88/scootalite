@@ -1,29 +1,39 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {ShowCard} from '../show';
-import {Cell, Grid, Spinner} from 'react-mdl';
+import {ShowDetails} from '../show';
 
-import {remoteFetchTrends} from '../../store/actions';
+import {remoteParseFeed} from '../../store/actions';
+import {UrlInput} from '../parser/UrlInput';
 
 
 class ParserView extends Component {
+    _renderBody() {
+        const {show} = this.props;
+        if (show) {
+            return <ShowDetails show={show}/>;
+        }
+
+        return <UrlInput onChange={text => console.log(text)}/>;
+    }
+
     render() {
-        return (
-            <div>
-                <div>
-                    <h1>Parser</h1>
-                </div>
-            </div>
-        )
+        return this._renderBody();
     }
 }
 
-const mapStateToProps = ({}) => {
-    return {};
+const mapStateToProps = ({podcasts}) => {
+    const {show} = podcasts;
+    return {
+        show
+    };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {};
+    return {
+        parse(feed){
+            dispatch(remoteParseFeed(feed));
+        }
+    };
 };
 
 const Parser = connect(

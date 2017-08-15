@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Button, Card, CardMenu, CardText, CardTitle, IconButton, List, Tooltip} from 'react-mdl';
 import {PodcastListItem} from "../podcast";
 
-import {remoteFetchMorePodcasts, remoteRefreshFeed} from '../../store/actions';
+import {remoteFetchMorePodcasts, remoteParseFeed} from '../../store/actions';
 
 
 class ShowDetailsView extends Component {
@@ -80,7 +80,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(remoteFetchMorePodcasts(id, page));
         },
         refreshFeed(url){
-            dispatch(remoteRefreshFeed(url));
+            dispatch(remoteParseFeed(url));
         }
     };
 };

@@ -1,0 +1,9 @@
+.feed-url-input {
+    width: 1000px;
+}
+
+@media screen and (max-width: 780px) {
+    .feed-url-input {
+        width: 300px;
+    }
+}
