@@ -1,18 +1,35 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {ShowDetails} from '../show';
+import isUrl from 'validator/lib/isURL';
 
-import {remoteParseFeed} from '../../store/actions';
+import {ShowDetails} from '../show';
 import {UrlInput} from '../parser/UrlInput';
 
+import {remoteParseFeed} from '../../store/actions';
+import {Button, Spinner} from "react-mdl";
+
+
 class ParserView extends Component {
+    state = {
+        valid: false,
+        loading: false
+    };
+
     _renderBody() {
+        if (this.state.loading) {
+            return <Spinner />
+        }
         const {show} = this.props;
         if (show) {
             return <ShowDetails show={show}/>;
         }
 
-        return <UrlInput onChange={text => console.log(text)}/>;
+        return (
+            <div style={{textAlign: 'center'}}>
+                <UrlInput onChange={e => this.setState({valid: isUrl(e.target.value)})}/>
+                {this.state.valid && <Button raised ripple> Parse</Button>}
+            </div>
+        );
     }
 
     render() {
