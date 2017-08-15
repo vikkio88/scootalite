@@ -5,10 +5,10 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import {Content, Header, HeaderRow, Layout} from 'react-mdl';
+import {Content, Header, HeaderRow, IconButton, Layout, Navigation} from 'react-mdl';
 
 import {Player} from './components/player';
-import {TrendingShows, Show} from './components/views';
+import {TrendingShows, Show, Parser} from './components/views';
 
 import './App.css';
 import logo from './resources/images/main-logo.svg';
@@ -27,14 +27,11 @@ class App extends Component {
                                     <img src={logo} style={{height: '50px'}} alt="scootalite logo"/>
                                 </Link>}
                             >
-                                {/*
-                                 <Navigation>
-                                 <a href="#">Link</a>
-                                 <a href="#">Link</a>
-                                 <a href="#">Link</a>
-                                 <a href="#">Link</a>
-                                 </Navigation>
-                                 */}
+                                <Navigation>
+                                    <Link to="/parser">
+                                        <IconButton className="navigation-bar-link" name="rss_feed"/>
+                                    </Link>
+                                </Navigation>
                             </HeaderRow>
                         </Header>
                         <Player/>
@@ -42,6 +39,7 @@ class App extends Component {
                             <div className="app-content">
                                 <Route exact path="/" component={TrendingShows}/>
                                 <Route path="/shows/:slug" component={Show}/>
+                                <Route path="/parser" component={Parser}/>
                             </div>
                         </Content>
                     </Layout>

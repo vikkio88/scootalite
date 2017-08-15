@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Button, Card, CardMenu, CardText, CardTitle, IconButton, List} from 'react-mdl';
+import {Button, Card, CardMenu, CardText, CardTitle, IconButton, List, Tooltip} from 'react-mdl';
 import {PodcastListItem} from "../podcast";
 
-import {remoteFetchMorePodcasts} from '../../store/actions';
+import {remoteFetchMorePodcasts, remoteRefreshFeed} from '../../store/actions';
 
 
 class ShowDetailsView extends Component {
@@ -15,6 +15,10 @@ class ShowDetailsView extends Component {
         const page = this.state.page + 1;
         this.props.morePodcasts(this.props.show.id, page);
         this.setState({page});
+    };
+    refresh = () => {
+        this.setState({page: 1});
+        this.props.refreshFeed(this.props.show.feed_url);
     };
 
     _renderPodcasts() {
@@ -49,6 +53,9 @@ class ShowDetailsView extends Component {
                     </CardText>
                     <CardMenu style={{color: '#fff'}}>
                         <IconButton name="share"/>
+                        <Tooltip label="Update Feed">
+                            <IconButton name="refresh" onClick={this.refresh}/>
+                        </Tooltip>
                     </CardMenu>
                 </Card>
                 <h4>Podcasts</h4>
@@ -71,6 +78,9 @@ const mapDispatchToProps = dispatch => {
     return {
         morePodcasts(id, page) {
             dispatch(remoteFetchMorePodcasts(id, page));
+        },
+        refreshFeed(url){
+            dispatch(remoteRefreshFeed(url));
         }
     };
 };

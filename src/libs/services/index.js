@@ -21,6 +21,11 @@ export const services = {
             return http.get(`/shows/${id}/podcasts`, {params: {p, l}}).then(body => {
                 return new Promise(resolve => resolve((body.data.payload)));
             });
+        },
+        parse(feed){
+            return http.post(`/shows/parse`, {feed}).then(body => {
+                return new Promise(resolve => resolve((body.data.payload)));
+            });
         }
     }
 };

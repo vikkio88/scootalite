@@ -21,6 +21,10 @@
     padding-right: 50px;
 }
 
+.navigation-bar-link {
+    color: #ff815a;
+}
+
 @media screen and (max-width: 780px) {
     .app-content {
         padding: 10px;

@@ -25,6 +25,13 @@ export const remoteFetchShow = slug => {
     }
 };
 
+export const remoteRefreshFeed = url => {
+    return dispatch => {
+        services.show.parse(url)
+            .then(show => dispatch(fetchShowSuccess({show})));
+    }
+};
+
 export const remoteFetchMorePodcasts = (showId, page) => {
     return dispatch => {
         services.show.getPodcastsById(showId, page)
