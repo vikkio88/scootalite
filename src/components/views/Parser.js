@@ -5,7 +5,6 @@ import {ShowDetails} from '../show';
 import {remoteParseFeed} from '../../store/actions';
 import {UrlInput} from '../parser/UrlInput';
 
-
 class ParserView extends Component {
     _renderBody() {
         const {show} = this.props;
