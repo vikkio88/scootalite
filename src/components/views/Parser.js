@@ -1,33 +1,42 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import isUrl from 'validator/lib/isURL';
+import {withRouter} from 'react-router-dom';
 
-import {ShowDetails} from '../show';
 import {UrlInput} from '../parser/UrlInput';
-
-import {remoteParseFeed} from '../../store/actions';
 import {Button, Spinner} from "react-mdl";
 
+import {services} from '../../libs/services';
 
 class ParserView extends Component {
     state = {
         valid: false,
-        loading: false
+        loading: false,
+        feed: null,
+        show: null
+    };
+
+    parse = () => {
+        this.setState({loading: true});
+        services.show.parse(this.state.feed)
+            .then(show => {
+                this.setState({show, loading: false});
+                this.props.history.push(`/shows/${show.slug}`);
+            })
+            .catch(error => {
+                console.log(error);
+                this.setState({loading: false})
+            });
     };
 
     _renderBody() {
-        if (this.state.loading) {
+        const {loading, valid} = this.state;
+        if (loading) {
             return <Spinner />
         }
-        const {show} = this.props;
-        if (show) {
-            return <ShowDetails show={show}/>;
-        }
-
         return (
             <div style={{textAlign: 'center'}}>
-                <UrlInput onChange={e => this.setState({valid: isUrl(e.target.value)})}/>
-                {this.state.valid && <Button raised ripple> Parse</Button>}
+                <UrlInput onChange={e => this.setState({valid: isUrl(e.target.value), feed: e.target.value})}/>
+                {valid && <Button raised ripple onClick={this.parse}>Parse</Button>}
             </div>
         );
     }
@@ -36,25 +45,5 @@ class ParserView extends Component {
         return this._renderBody();
     }
 }
-
-const mapStateToProps = ({podcasts}) => {
-    const {show} = podcasts;
-    return {
-        show
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        parse(feed){
-            dispatch(remoteParseFeed(feed));
-        }
-    };
-};
-
-const Parser = connect(
-    mapStateToProps, mapDispatchToProps
-)(ParserView);
-
-
+const Parser = withRouter(ParserView);
 export {Parser};
