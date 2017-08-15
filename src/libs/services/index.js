@@ -7,13 +7,18 @@ const http = axios.create({
 
 export const services = {
     show: {
-        getAll(page = 1, limit = 10){
-            return http.get('/shows').then(body => {
+        getAll(p = 1, l = 10){
+            return http.get('/shows', {params: {p, l}}).then(body => {
                 return new Promise(resolve => resolve((body.data.payload)));
             });
         },
         getBySlug(slug){
             return http.get(`/shows/${slug}`).then(body => {
+                return new Promise(resolve => resolve((body.data.payload)));
+            });
+        },
+        getPodcastsById(id, p = 2, l = 10){
+            return http.get(`/shows/${id}/podcasts`, {params: {p, l}}).then(body => {
                 return new Promise(resolve => resolve((body.data.payload)));
             });
         }
