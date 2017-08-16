@@ -23,7 +23,7 @@
 .player-head-actions i {
     cursor: pointer;
     margin-right: 3px;
-    box-shadow: 3px 3px 3px -1px rgba(0,0,0,0.44);
+    box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.44);
 }
 
 .player-control {
