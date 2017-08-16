@@ -31,12 +31,13 @@ class ParserView extends Component {
     _renderBody() {
         const {loading, valid} = this.state;
         if (loading) {
-            return <Spinner />
+            return <Spinner/>
         }
         return (
-            <div style={{textAlign: 'center'}}>
+            <div style={{textAlign: 'center', display: 'flex', flexDirection: 'column'}}>
                 <UrlInput onChange={e => this.setState({valid: isUrl(e.target.value), feed: e.target.value})}/>
-                {valid && <Button raised ripple onClick={this.parse}>Parse</Button>}
+                {valid &&
+                <Button style={{width: '100px', margin: 'auto'}} raised ripple onClick={this.parse}>Parse</Button>}
             </div>
         );
     }
@@ -45,5 +46,6 @@ class ParserView extends Component {
         return this._renderBody();
     }
 }
+
 const Parser = withRouter(ParserView);
 export {Parser};
