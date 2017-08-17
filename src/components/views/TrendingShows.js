@@ -26,7 +26,7 @@ class TrendingShowsView extends Component {
 
     _renderShowCards() {
         return this.props.trendingShows.map(s => (
-            <Cell col={2} key={s.id}>
+            <Cell col={4} key={s.id}>
                 <ShowCard show={s}/>
             </Cell>
         ));
