@@ -5,10 +5,10 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import {Content, Header, HeaderRow, IconButton, Layout, Navigation} from 'react-mdl';
+import {Content, Header, HeaderRow, IconButton, Layout, Navigation, Tooltip} from 'react-mdl';
 
 import {Player} from './components/player';
-import {TrendingShows, Show, Parser} from './components/views';
+import {TrendingShows, Show, Parser, About} from './components/views';
 
 import './App.css';
 import logo from './resources/images/main-logo.svg';
@@ -21,18 +21,24 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <Layout fixedHeader>
-                        <Header style={{backgroundColor: '#eeeeee'}}>
-                            <HeaderRow
-                                title={<Link to="/">
-                                    <img src={logo} style={{height: '50px'}} alt="scootalite logo"/>
-                                </Link>}
-                            >
-                                <Navigation>
+                        <Header
+                            style={{backgroundColor: '#eeeeee'}}
+                            title={<Link to="/">
+                                <img src={logo} style={{height: '50px'}} alt="scootalite logo"/>
+                            </Link>}
+                        >
+                            <Navigation>
+                                <Tooltip label="Rss Feed Parser">
                                     <Link to="/parser">
                                         <IconButton className="navigation-bar-link" name="rss_feed"/>
                                     </Link>
-                                </Navigation>
-                            </HeaderRow>
+                                </Tooltip>
+                                <Tooltip label="About">
+                                    <Link to="/about">
+                                        <IconButton className="navigation-bar-link" name="info_outline"/>
+                                    </Link>
+                                </Tooltip>
+                            </Navigation>
                         </Header>
                         <Player/>
                         <Content className="app-body">
@@ -40,6 +46,7 @@ class App extends Component {
                                 <Route exact path="/" component={TrendingShows}/>
                                 <Route path="/shows/:slug" component={Show}/>
                                 <Route path="/parser" component={Parser}/>
+                                <Route path="/about" component={About}/>
                             </div>
                         </Content>
                     </Layout>

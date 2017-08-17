@@ -1,0 +1,31 @@
+.about-text {
+    margin-top: 20px;
+}
+
+.about-text p {
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.logo-wrapper {
+    padding: 20px;
+    text-align: center;
+}
+
+.logo-wrapper p {
+    margin-top: 30px;
+}
+
+.logo {
+    animation: logo-spin infinite 20s linear;
+    height: 150px;
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
