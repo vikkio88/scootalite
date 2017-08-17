@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Icon} from 'react-mdl';
+import {Button, Icon, Tooltip} from 'react-mdl';
 
 import {selectPodcast, stop} from '../../store/actions';
 
@@ -29,13 +29,16 @@ class PodcastListItemView extends Component {
     render() {
         const {podcast} = this.props;
         return (
-            <div
-                onClick={this.select}
-                className={`podcast-list-item ${this.isSelected() ? 'selected-podcast' : ''}`}
-            >
+            <div className={`podcast-list-item ${this.isSelected() ? 'selected-podcast' : ''}`}>
                 <div className="podcast-list-item-icon-container">
-                    <Icon name={`${this.isSelected() ? 'stop' : 'play_arrow'}`}
-                          style={!this.isSelected() ? {color: '#ff815a'} : {}}/>
+                    <Button
+                        ripple
+                        raised
+                        onClick={this.select}
+                    >
+                        <Icon name={`${this.isSelected() ? 'stop' : 'play_arrow'}`}
+                              style={!this.isSelected() ? {color: '#ff815a'} : {}}/>
+                    </Button>
                 </div>
                 <div className="podcast-list-item-text-container">
                     <h5>
@@ -44,6 +47,13 @@ class PodcastListItemView extends Component {
                     <p>
                         {podcast.description}
                     </p>
+                    <div>
+                        <Tooltip label={`Download ${podcast.name}`}>
+                            <a href={podcast.file_url} download target="_blank">
+                                <Icon name="file_download"/>
+                            </a>
+                        </Tooltip>
+                    </div>
                 </div>
             </div>
         )
@@ -61,10 +71,10 @@ const mapStateToProps = ({player, podcasts}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        select(podcast){
+        select(podcast) {
             dispatch(selectPodcast(podcast));
         },
-        deselect(){
+        deselect() {
             dispatch(stop());
         },
 
