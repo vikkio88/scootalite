@@ -8,17 +8,18 @@
 }
 
 .logo-wrapper {
+    margin-top: 50px;
     padding: 20px;
     text-align: center;
 }
 
 .logo-wrapper p {
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .logo {
     animation: logo-spin infinite 20s linear;
-    height: 150px;
+    height: 200px;
 }
 
 @keyframes logo-spin {

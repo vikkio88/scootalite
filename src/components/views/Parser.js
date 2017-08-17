@@ -3,7 +3,7 @@ import isUrl from 'validator/lib/isURL';
 import {withRouter} from 'react-router-dom';
 
 import {UrlInput} from '../parser/UrlInput';
-import {Button, Spinner} from "react-mdl";
+import {Button, Icon, Spinner} from "react-mdl";
 
 import {services} from '../../libs/services';
 
@@ -34,16 +34,31 @@ class ParserView extends Component {
             return <Spinner/>
         }
         return (
-            <div style={{textAlign: 'center', display: 'flex', flexDirection: 'column'}}>
+            <div>
                 <UrlInput onChange={e => this.setState({valid: isUrl(e.target.value), feed: e.target.value})}/>
-                {valid &&
-                <Button style={{width: '100px', margin: 'auto'}} raised ripple onClick={this.parse}>Parse</Button>}
+                {
+                    valid &&
+                    <div>
+                        <Button raised ripple onClick={this.parse}>
+                            <Icon name="send" style={{marginRight: '4px'}}/>
+                            Parse
+                        </Button>
+                    </div>
+                }
             </div>
         );
     }
 
     render() {
-        return this._renderBody();
+        return (
+            <div style={{textAlign: 'center'}}>
+                <h2>Rss Feed Parser</h2>
+                <div>Paste the <strong>rss feed</strong> link on here, to add it to the <strong>
+                    Scootalite</strong> library
+                </div>
+                {this._renderBody()}
+            </div>
+        );
     }
 }
 
