@@ -7,12 +7,17 @@ import {humanizeTimeDiffFromNow} from '../../libs/utils';
 import {remoteFetchMorePodcasts, remoteParseFeed} from '../../store/actions';
 
 import './ShowDetails.css';
+import {services} from '../../libs/services/';
 
 
 class ShowDetailsView extends Component {
     state = {
         page: 1
     };
+
+    componentWillMount() {
+        services.stats.push(`BROWSE show ${this.props.show.slug}`);
+    }
 
     morePodcasts = () => {
         const page = this.state.page + 1;
@@ -60,7 +65,11 @@ class ShowDetailsView extends Component {
                         </p>
                     </CardText>
                     <CardMenu style={{color: '#fff'}}>
-                        <IconButton name="share"/>
+                        <Tooltip label={`${show.name} - website`}>
+                            <a href={show.website} target="_blank">
+                                <IconButton name="link"/>
+                            </a>
+                        </Tooltip>
                         <Tooltip label="Update Feed">
                             <IconButton name="refresh" onClick={this.refresh}/>
                         </Tooltip>
