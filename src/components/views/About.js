@@ -10,7 +10,8 @@ class About extends Component {
             <div>
                 <div style={{textAlign: 'center'}}>
                     <h1 style={{marginBottom: '3px'}}>Scootalite</h1>
-                    <strong>made with ♥ by <a href="https://vikkio.co" target="_blank">vikkio</a></strong>
+                    <strong>made with ♥ by <a href="https://vikkio.co" target="_blank"
+                                              rel="noopener noreferrer">vikkio</a></strong>
                 </div>
                 <div style={{marginTop: '15px', textAlign: 'center'}}>
                     <Button raised ripple
@@ -39,23 +40,26 @@ class About extends Component {
                     </p>
                     <p>At the moment I am planning just to show some free random podcasts. You will be able to parse rss
                         feed and see them in a more user-friendly way.</p>
-                    <p>The web app is written in <a href="https://facebook.github.io/react" target="_blank">react.js</a>,
+                    <p>The web app is written in <a href="https://facebook.github.io/react" target="_blank"
+                                                    rel="noopener noreferrer">react.js</a>,
                         the backend in <strong>php7</strong> using an enhanced version of <a
-                            href="https://www.slimframework.com/" target="_blank">slim</a>, my very own <a
-                            href="https://github.com/vikkio88/slime" target="_blank">slime</a>.
+                            href="https://www.slimframework.com/" target="_blank" rel="noopener noreferrer">slim</a>, my
+                        very own <a
+                            href="https://github.com/vikkio88/slime" target="_blank" rel="noopener noreferrer">slime</a>.
                     </p>
                     <p>Soon I will add the option to create a custom library by adding your favourite RSS feeds, saving
                         position, history, trends... and much more</p>
                     <p>I will always keep everything open-source, and if you are a computer geek and you want to
                         collaborate with this project just check out the <a
-                            href="https://github.com/vikkio88/scootalite" target="_blank">code</a>.</p>
+                            href="https://github.com/vikkio88/scootalite" target="_blank"
+                            rel="noopener noreferrer">code</a>.</p>
                 </div>
                 <div className="logo-wrapper">
                     <img src={logo} className="logo" alt="scootalite logo"/>
                     <p>
                         logo designed by <strong>
                         <a href="https://www.facebook.com/LikasDesign "
-                           target="_blank">Salvatore Li Causi</a>
+                           target="_blank" rel="noopener noreferrer">Salvatore Li Causi</a>
                     </strong>
                     </p>
                 </div>

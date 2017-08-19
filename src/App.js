@@ -5,7 +5,7 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import {Content, Header, HeaderRow, IconButton, Layout, Navigation, Tooltip} from 'react-mdl';
+import {Content, Header, IconButton, Layout, Navigation, Tooltip} from 'react-mdl';
 
 import {Player} from './components/player';
 import {TrendingShows, Show, Parser, About} from './components/views';
