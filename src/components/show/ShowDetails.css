@@ -1,0 +1,11 @@
+.updated-info-wrapper {
+    text-align: center;
+    font-size: 13px;
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.show-description-wrapper {
+    font-size: larger;
+    padding: 0;
+}

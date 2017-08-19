@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Button, Icon, Tooltip} from 'react-mdl';
 
+import {humanizeTimeDiffFromNow} from '../../libs/utils';
 import {selectPodcast, stop} from '../../store/actions';
-
 import './PodcastListItem.css';
+
 
 class PodcastListItemView extends Component {
     isSelected = () => {
@@ -23,7 +24,6 @@ class PodcastListItemView extends Component {
             };
             select(podcast);
         }
-
     };
 
     render() {
@@ -44,6 +44,11 @@ class PodcastListItemView extends Component {
                     <h5>
                         {podcast.name}
                     </h5>
+                    <p className="date-wrapper">
+                        <Tooltip label={podcast.date}>
+                            {humanizeTimeDiffFromNow(podcast.date)}
+                        </Tooltip>
+                    </p>
                     <p>
                         {podcast.description}
                     </p>

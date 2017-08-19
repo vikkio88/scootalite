@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Button, Card, CardMenu, CardText, CardTitle, IconButton, List, Tooltip} from 'react-mdl';
-import {PodcastListItem} from "../podcast";
+import {PodcastListItem} from '../podcast';
 
+import {humanizeTimeDiffFromNow} from '../../libs/utils';
 import {remoteFetchMorePodcasts, remoteParseFeed} from '../../store/actions';
+
+import './ShowDetails.css';
 
 
 class ShowDetailsView extends Component {
@@ -49,7 +52,12 @@ class ShowDetailsView extends Component {
                         {show.name}
                     </CardTitle>
                     <CardText>
-                        {show.description}
+                        <p className="updated-info-wrapper">
+                            Last update: {humanizeTimeDiffFromNow(show.updated_at)}
+                        </p>
+                        <p className="show-description-wrapper">
+                            {show.description}
+                        </p>
                     </CardText>
                     <CardMenu style={{color: '#fff'}}>
                         <IconButton name="share"/>
@@ -67,6 +75,7 @@ class ShowDetailsView extends Component {
         );
     }
 }
+
 const mapStateToProps = ({podcasts}) => {
     const {show} = podcasts;
     return {
@@ -79,7 +88,7 @@ const mapDispatchToProps = dispatch => {
         morePodcasts(id, page) {
             dispatch(remoteFetchMorePodcasts(id, page));
         },
-        refreshFeed(url){
+        refreshFeed(url) {
             dispatch(remoteParseFeed(url));
         }
     };
