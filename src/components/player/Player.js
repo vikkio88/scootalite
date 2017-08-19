@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
 import {Button, Icon} from "react-mdl";
+import hotkeys from 'hotkeys-js';
 
 import {play, stop, pause} from '../../store/actions';
 
@@ -20,13 +21,20 @@ class PlayerView extends Component {
         originalTitle: null
     };
 
+    componentWillMount() {
+        hotkeys('p', () => this.togglePlay());
+    }
+
+    componentWillUnmount() {
+        hotkeys.unbind('p');
+    }
+
     togglePlay = () => {
-        const {playing, play, pause} = this.props;
-        if (playing) {
-            pause();
-        } else {
-            play();
+        const {playing, play, pause, selectedPodcast} = this.props;
+        if (!selectedPodcast) {
+            return;
         }
+        playing ? pause() : play();
     };
 
     play = () => {
