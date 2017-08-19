@@ -1,6 +1,5 @@
 import {SELECT_PODCAST, PLAY, PAUSE, STOP} from  '../actions';
 import {services} from '../../libs/services';
-import {selectPodcast} from "../actions/podcast";
 
 const initialState = {
     selectedPodcast: null,
