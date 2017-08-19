@@ -44,11 +44,11 @@ class PodcastListItemView extends Component {
                     <h5>
                         {podcast.name}
                     </h5>
-                    <p className="date-wrapper">
+                    <div className="date-wrapper">
                         <Tooltip label={podcast.date}>
                             {humanizeTimeDiffFromNow(podcast.date)}
                         </Tooltip>
-                    </p>
+                    </div>
                     <p>
                         {podcast.description}
                     </p>
