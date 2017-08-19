@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {Button, Icon} from "react-mdl";
-
+import {services} from '../../libs/services/';
 import './About.css';
 import logo from '../../resources/images/main-logo.svg';
 
 class About extends Component {
+    componentWillMount() {
+        services.stats.push('BROWSE about');
+    }
+
     render() {
         return (
             <div>

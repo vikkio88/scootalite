@@ -14,8 +14,13 @@ import './App.css';
 import logo from './resources/images/main-logo.svg';
 
 import {store} from './store';
+import {services} from './libs/services';
 
 class App extends Component {
+    componentWillMount() {
+        services.stats.push('MAIN');
+    }
+
     render() {
         return (
             <Provider store={store}>

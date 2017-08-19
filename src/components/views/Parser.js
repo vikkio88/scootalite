@@ -15,8 +15,13 @@ class ParserView extends Component {
         show: null
     };
 
+    componentWillMount() {
+        services.stats.push('BROWSE parser');
+    }
+
     parse = () => {
         this.setState({loading: true});
+        services.stats.push(`PARSE_REQUEST ${this.state.feed}`);
         services.show.parse(this.state.feed)
             .then(show => {
                 this.setState({show, loading: false});

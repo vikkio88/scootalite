@@ -1,4 +1,6 @@
 import {SELECT_PODCAST, PLAY, PAUSE, STOP} from  '../actions';
+import {services} from '../../libs/services';
+import {selectPodcast} from "../actions/podcast";
 
 const initialState = {
     selectedPodcast: null,
@@ -8,6 +10,7 @@ const initialState = {
 export default function game(state = initialState, action = {}) {
     switch (action.type) {
         case PLAY:
+            services.stats.push(`PLAY ${selectPodcast.id}`);
             const newState = {playing: true};
             if (!state.originalTitle) {
                 newState.originalTitle = document.title;
@@ -31,6 +34,7 @@ export default function game(state = initialState, action = {}) {
                 playing: false
             };
         case SELECT_PODCAST:
+            services.stats.push(`SELECTED ${action.data.id}`);
             return {
                 ...state,
                 selectedPodcast: action.data,

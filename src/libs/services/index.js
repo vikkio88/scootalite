@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {isProduction} from '../utils';
 
 const http = axios.create({
     baseURL: 'https://vikkio.co/scootalite-api',
@@ -26,6 +27,13 @@ export const services = {
             return http.post(`/shows/parse`, {feed}).then(body => {
                 return new Promise(resolve => resolve((body.data.payload)));
             });
+        }
+    },
+    stats: {
+        push(action) {
+            if (isProduction()) {
+                return http.post(`/stats`, {action, navigator: window.navigator.userAgent});
+            }
         }
     }
 };
