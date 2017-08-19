@@ -10,7 +10,6 @@ const initialState = {
 export default function game(state = initialState, action = {}) {
     switch (action.type) {
         case PLAY:
-            services.stats.push(`PLAY ${selectPodcast.id}`);
             const newState = {playing: true};
             if (!state.originalTitle) {
                 newState.originalTitle = document.title;
@@ -34,7 +33,7 @@ export default function game(state = initialState, action = {}) {
                 playing: false
             };
         case SELECT_PODCAST:
-            services.stats.push(`SELECTED ${action.data.id}`);
+            services.stats.push(`SELECTED ${action.data.slug}`);
             return {
                 ...state,
                 selectedPodcast: action.data,
