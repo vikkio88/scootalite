@@ -1,4 +1,5 @@
 import {services} from '../../libs/services';
+import {flashError} from './app';
 
 export const SELECT_PODCAST = 'select_podcast';
 export const FETCH_TRENDS_SUCCESS = 'fetch_trends_success';
@@ -26,7 +27,7 @@ export const remoteFetchPodcast = (slug) => {
                 if (podcast) {
                     dispatch(selectPodcast(podcast));
                 } else {
-                    console.log("Nope");
+                    dispatch(flashError("Invalid podcast url"));
                 }
             });
     }

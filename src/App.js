@@ -8,6 +8,7 @@ import {
 import {Content, Header, IconButton, Layout, Navigation, Tooltip} from 'react-mdl';
 
 import {Player} from './components/player';
+import {SnackbarMessage} from './components/notification';
 import {TrendingShows, Show, Parser, About, Podcast} from './components/views';
 
 import './App.css';
@@ -55,6 +56,7 @@ class App extends Component {
                                 <Route path="/podcasts/:slug" component={Podcast}/>
                             </div>
                         </Content>
+                        <SnackbarMessage/>
                     </Layout>
                 </Router>
             </Provider>
