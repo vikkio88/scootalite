@@ -1,4 +1,5 @@
 import {services} from '../../libs/services';
+
 export const SELECT_PODCAST = 'select_podcast';
 export const FETCH_TRENDS_SUCCESS = 'fetch_trends_success';
 export const FETCH_SHOW_SUCCESS = 'fetch_show_success';
@@ -15,6 +16,19 @@ export const remoteFetchTrends = () => {
     return dispatch => {
         services.show.getAll()
             .then(trendingShows => dispatch(fetchTrendsSuccess({trendingShows})));
+    }
+};
+
+export const remoteFetchPodcast = (slug) => {
+    return (dispatch) => {
+        services.podcast.getBySlug(slug)
+            .then(podcast => {
+                if (podcast) {
+                    dispatch(selectPodcast(podcast));
+                } else {
+                    console.log("Nope");
+                }
+            });
     }
 };
 

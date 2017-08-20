@@ -29,6 +29,13 @@ export const services = {
             });
         }
     },
+    podcast: {
+        getBySlug(slug) {
+            return http.get(`/podcasts/${slug}`).then(body => {
+                return new Promise(resolve => resolve((body.data.payload)));
+            });
+        },
+    },
     stats: {
         push(action) {
             if (isProduction()) {

@@ -8,7 +8,7 @@ import {
 import {Content, Header, IconButton, Layout, Navigation, Tooltip} from 'react-mdl';
 
 import {Player} from './components/player';
-import {TrendingShows, Show, Parser, About} from './components/views';
+import {TrendingShows, Show, Parser, About, Podcast} from './components/views';
 
 import './App.css';
 import logo from './resources/images/main-logo.svg';
@@ -52,6 +52,7 @@ class App extends Component {
                                 <Route path="/shows/:slug" component={Show}/>
                                 <Route path="/parser" component={Parser}/>
                                 <Route path="/about" component={About}/>
+                                <Route path="/podcasts/:slug" component={Podcast}/>
                             </div>
                         </Content>
                     </Layout>
