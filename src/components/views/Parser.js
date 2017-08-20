@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import isUrl from 'validator/lib/isURL';
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {UrlInput} from '../parser/UrlInput';
 import {Button, Icon, Spinner} from "react-mdl";
 
 import {services} from '../../libs/services';
+import {flashError} from '../../store/actions';
 
 class ParserView extends Component {
     state = {
@@ -28,7 +30,7 @@ class ParserView extends Component {
                 this.props.history.push(`/shows/${show.slug}`);
             })
             .catch(error => {
-                console.log(error);
+                this.props.flashError('Invalid or Malformed RSS Feed');
                 this.setState({loading: false})
             });
     };
@@ -66,6 +68,16 @@ class ParserView extends Component {
         );
     }
 }
+const mapStateToProps = () => {
+    return {};
+};
 
-const Parser = withRouter(ParserView);
+const mapDispatchToProps = dispatch => {
+    return {
+        flashError(message) {
+            dispatch(flashError(message));
+        }
+    };
+};
+const Parser = connect(mapStateToProps, mapDispatchToProps)(withRouter(ParserView));
 export {Parser};

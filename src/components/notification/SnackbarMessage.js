@@ -17,7 +17,7 @@ class SnackbarMessageView extends Component {
 
     render() {
         const {error, info} = this.props;
-        const isSnackbarActive = error || info;
+        const isSnackbarActive = error !== null || info !== null;
         return (
             <div>
                 <Snackbar
