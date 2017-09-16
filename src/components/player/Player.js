@@ -4,12 +4,12 @@ import ReactPlayer from 'react-player';
 import moment from 'moment';
 import {Button, Icon} from "react-mdl";
 import hotkeys from 'hotkeys-js';
+import {ShareDialog} from "../dialog";
 
 import {play, stop, pause} from '../../store/actions';
 
 
 import './Player.css';
-import {ShareDialog} from "../dialog/ShareDialog";
 
 class PlayerView extends Component {
     player = null;
@@ -20,7 +20,8 @@ class PlayerView extends Component {
         seeking: false,
         expanded: true,
         originalTitle: null,
-        shareActive: false
+        shareActive: false,
+        addTime: true
     };
 
     componentWillMount() {
@@ -79,13 +80,17 @@ class PlayerView extends Component {
         this.player.seekTo(parseFloat(duration * played + diff));
     };
 
+    toggleTime = () => {
+        this.setState({addTime: !this.state.addTime});
+    };
+
     shareClose = () => {
         this.setState({shareActive: false});
     };
 
     render() {
         const {selectedPodcast, playing} = this.props;
-        const {played, duration, expanded, shareActive} = this.state;
+        const {played, duration, expanded, shareActive, addTime} = this.state;
         if (!selectedPodcast) {
             return <div/>
         }
@@ -105,7 +110,7 @@ class PlayerView extends Component {
                         </a>
                     </div>
                     <div className="player-head-title">
-                        {!expanded ? `${selectedPodcast.show.name} - ${selectedPodcast.name}` : ''}
+                        {!expanded ? `${`${timeParse(duration * played)} - ${timeParse(duration)}`} - ${selectedPodcast.show.name} - ${selectedPodcast.name}` : ''}
                     </div>
                 </div>
                 { expanded &&
@@ -137,6 +142,7 @@ class PlayerView extends Component {
                 </div>
                 }
                 <ReactPlayer
+
                     ref={player => {
                         this.player = player
                     }}
@@ -155,7 +161,14 @@ class PlayerView extends Component {
                     onEnded={this.onEnded}
                     onError={e => console.log('onError', e)}
                 />
-                <ShareDialog isActive={shareActive} onClose={this.shareClose}/>
+                <ShareDialog
+                    isActive={shareActive}
+                    addTime={addTime}
+                    onClose={this.shareClose}
+                    toggleTime={this.toggleTime}
+                    url={
+                        `${window.location.protocol}//${window.location.host}/podcasts/${selectedPodcast.slug}${addTime ? `?t=${parseInt(duration * played, 10)}` : ''}`
+                    }/>
             </div>
         );
     }
