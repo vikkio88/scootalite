@@ -16,7 +16,7 @@ class ShareDialog extends Component {
             <div>
                 <Dialog open={isActive}>
                     <DialogContent>
-                        <p id="shareLink" style={{fontSize: '17px'}} onClick={this.select}>
+                        <p id="shareLink" style={{fontSize: '15px'}} onClick={this.select}>
                             {url}
                         </p>
                         Add time <IconToggle name="timelapse" defaultChecked={addTime} onChange={toggleTime}/>
