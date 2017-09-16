@@ -9,6 +9,7 @@ import {play, stop, pause} from '../../store/actions';
 
 
 import './Player.css';
+import {ShareDialog} from "../dialog/ShareDialog";
 
 class PlayerView extends Component {
     player = null;
@@ -18,7 +19,8 @@ class PlayerView extends Component {
         played: 0,
         seeking: false,
         expanded: true,
-        originalTitle: null
+        originalTitle: null,
+        shareActive: false
     };
 
     componentWillMount() {
@@ -77,9 +79,13 @@ class PlayerView extends Component {
         this.player.seekTo(parseFloat(duration * played + diff));
     };
 
+    shareClose = () => {
+        this.setState({shareActive: false});
+    };
+
     render() {
         const {selectedPodcast, playing} = this.props;
-        const {played, duration, expanded} = this.state;
+        const {played, duration, expanded, shareActive} = this.state;
         if (!selectedPodcast) {
             return <div/>
         }
@@ -87,16 +93,19 @@ class PlayerView extends Component {
         return (
             <div className="player-wrapper">
                 <div className="player-head">
-                    <div className="player-head-title">
-                        {!expanded ? `${selectedPodcast.show.name} - ${selectedPodcast.name}` : ''}
-                    </div>
                     <div className="player-head-actions">
-                        <a onClick={() => this.setState({expanded: !expanded})}>
-                            <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
-                        </a>
                         <a onClick={this.stop}>
                             <Icon className="player-control" name="close"/>
                         </a>
+                        <a onClick={() => this.setState({expanded: !expanded})}>
+                            <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
+                        </a>
+                        <a onClick={() => this.setState({shareActive: true})}>
+                            <Icon className="player-control" name="share"/>
+                        </a>
+                    </div>
+                    <div className="player-head-title">
+                        {!expanded ? `${selectedPodcast.show.name} - ${selectedPodcast.name}` : ''}
                     </div>
                 </div>
                 { expanded &&
@@ -125,7 +134,6 @@ class PlayerView extends Component {
                     <Button ripple raised disabled={!playing} onClick={() => this.seek(10)}>
                         <Icon className="player-control" name="forward_10"/>
                     </Button>
-
                 </div>
                 }
                 <ReactPlayer
@@ -147,6 +155,7 @@ class PlayerView extends Component {
                     onEnded={this.onEnded}
                     onError={e => console.log('onError', e)}
                 />
+                <ShareDialog isActive={shareActive} onClose={this.shareClose}/>
             </div>
         );
     }

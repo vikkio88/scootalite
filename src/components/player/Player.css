@@ -8,20 +8,22 @@
 
 .player-head {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-content: space-around;
     padding-bottom: 5px;
 }
 
 .player-head-title {
-    font-size: 12px;
-    margin: auto;
+    font-size: 16px;
+    padding: 10px;
+    margin-left: 10px;
 }
 .player-head-actions {
     margin-left: 3px;
 }
 .player-head-actions i {
     cursor: pointer;
+    font-size: 30px;
     margin-right: 3px;
     box-shadow: 1px 1px 1px -1px rgba(0,0,0,0.44);
 }
