@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
-import {Button, Icon} from "react-mdl";
+import {Button, Icon, ProgressBar} from "react-mdl";
 import hotkeys from 'hotkeys-js';
 import {ShareDialog} from "../dialog";
 
@@ -21,7 +21,8 @@ class PlayerView extends Component {
         expanded: true,
         originalTitle: null,
         shareActive: false,
-        addTime: true
+        addTime: true,
+        ready: true
     };
 
     componentWillMount() {
@@ -49,6 +50,7 @@ class PlayerView extends Component {
     };
 
     onPlay = () => {
+        this.setState({ ready: false });
         this.props.play();
     };
 
@@ -90,7 +92,7 @@ class PlayerView extends Component {
 
     render() {
         const {selectedPodcast, playing} = this.props;
-        const {played, duration, expanded, shareActive, addTime} = this.state;
+        const {played, duration, expanded, shareActive, addTime, ready} = this.state;
         if (!selectedPodcast) {
             return <div/>
         }
@@ -119,15 +121,18 @@ class PlayerView extends Component {
                     <p className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</p>
                 </div>
                 }
-                <input
-                    type='range' min={0} max={1} step='any'
-                    value={played}
-                    onMouseDown={this.onSeekStart}
-                    onTouchStart={this.onSeekStart}
-                    onChange={this.onSeekChange}
-                    onMouseUp={this.onSeekStop}
-                    onTouchEnd={this.onSeekStop}
-                />
+                {
+                    !ready ?
+                        <input
+                            type='range' min={0} max={1} step='any'
+                            value={played}
+                            onMouseDown={this.onSeekStart}
+                            onTouchStart={this.onSeekStart}
+                            onChange={this.onSeekChange}
+                            onMouseUp={this.onSeekStop}
+                            onTouchEnd={this.onSeekStop}
+                        /> : <h3>Loading...</h3>
+                }
                 {expanded &&
                 <div>
                     <Button ripple raised disabled={!playing} onClick={() => this.seek(-10)}>
@@ -151,7 +156,7 @@ class PlayerView extends Component {
                     height='0'
                     url={selectedPodcast.file_url}
                     playing={playing}
-                    onReady={() => console.log('onReady')}
+                    onReady={() => this.setState({ ready: true })}
                     onProgress={this.onProgress}
                     onDuration={duration => this.setState({duration})}
                     onStart={() => console.log('onStart')}

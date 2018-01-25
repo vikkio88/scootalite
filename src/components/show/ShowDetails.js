@@ -64,7 +64,7 @@ class ShowDetailsView extends Component {
                             {show.description}
                         </p>
                     </CardText>
-                    <CardMenu style={{color: '#fff'}}>
+                    <CardMenu style={{color: '#FF6749', backgroundColor:'#eeeeee', opacity:0.6 }}>
                         <Tooltip label={`${show.name} - website`}>
                             <a href={show.website} target="_blank">
                                 <IconButton name="link"/>
