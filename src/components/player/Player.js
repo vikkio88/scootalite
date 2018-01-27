@@ -74,7 +74,7 @@ class PlayerView extends Component {
         this.setState({played: parseFloat(e.target.value)});
     };
     onSeekStop = e => {
-        this.setState({seeking: false});
+        this.setState({ seeking: false, ready: true });
         this.player.seekTo(parseFloat(e.target.value))
     };
     seek = diff => {
