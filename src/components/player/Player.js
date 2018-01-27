@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
-import { Button, Icon, ProgressBar } from "react-mdl";
+import { Button, Icon } from "react-mdl";
 import hotkeys from 'hotkeys-js';
 import { ShareDialog } from "../dialog";
 
