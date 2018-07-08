@@ -24,6 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "mv build/index.html build/200.html && surge --domain scootalite.surge.sh build/"
+    "deploy": "mv build/index.html build/200.html && surge --domain scootalite.surge.sh build/",
+    "buildDeploy": "GENERATE_SOURCEMAP=false react-scripts build && yarn deploy"
   }
 }
