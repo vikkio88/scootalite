@@ -54,7 +54,7 @@ class PodcastListItemView extends Component {
                     </p>
                     <div>
                         <Tooltip label={`Download ${podcast.name}`}>
-                            <a href={podcast.file_url} download target="_blank">
+                            <a href={podcast.file_url} download={`${podcast.name}`} target="_blank">
                                 <Icon name="file_download"/>
                             </a>
                         </Tooltip>

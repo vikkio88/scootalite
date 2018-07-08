@@ -47,7 +47,7 @@ class ShowDetailsView extends Component {
         const {show} = this.props;
         return (
             <div>
-                <Card shadow={1} style={{width: '100%', margin: 'auto'}}>
+                <Card shadow={1} style={{width: '100ovh', margin: 'auto'}}>
                     <CardTitle style={{
                         color: '#fff',
                         textShadow: '2px 1px 2px black',
