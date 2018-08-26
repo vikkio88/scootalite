@@ -8,7 +8,7 @@ const http = axios.create({
 
 export const services = {
     show: {
-        getAll(p = 1, l = 20) {
+        getAll(p = 1, l = 30) {
             return http.get('/shows', {params: {p, l}}).then(body => {
                 return new Promise(resolve => resolve((body.data.payload)));
             });

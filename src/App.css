@@ -11,18 +11,6 @@
     color: white;
 }
 
-.app-body {
-    display: flex;
-    padding: 10px;
-    margin: 10px auto auto;
-}
-
-.app-content {
-    flex: 1;
-    padding-left: 150px;
-    padding-right: 150px;
-}
-
 .navigation-bar-link {
     color: #ff815a;
 }

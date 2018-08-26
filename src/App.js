@@ -47,14 +47,12 @@ class App extends Component {
                             </Navigation>
                         </Header>
                         <Player/>
-                        <Content className="app-body">
-                            <div className="app-content">
-                                <Route exact path="/" component={TrendingShows}/>
-                                <Route path="/shows/:slug" component={Show}/>
-                                <Route path="/parser" component={Parser}/>
-                                <Route path="/about" component={About}/>
-                                <Route path="/podcasts/:slug" component={Podcast}/>
-                            </div>
+                        <Content className="app-content">
+                            <Route exact path="/" component={TrendingShows}/>
+                            <Route path="/shows/:slug" component={Show}/>
+                            <Route path="/parser" component={Parser}/>
+                            <Route path="/about" component={About}/>
+                            <Route path="/podcasts/:slug" component={Podcast}/>
                         </Content>
                         <SnackbarMessage/>
                     </Layout>
