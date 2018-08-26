@@ -18,7 +18,7 @@ class TrendingShowsView extends Component {
         this.props.remoteFetchTrends();
     }
 
-    _renderBody() {
+    render() {
         const {trendingShows} = this.props;
         if (!trendingShows.length) {
             return <Spinner/>;
@@ -28,14 +28,6 @@ class TrendingShowsView extends Component {
             <Masonry>
                 {this.props.trendingShows.map(s => <ShowCard key={s.id} show={s}/>)}
             </Masonry>
-        )
-    }
-
-    render() {
-        return (
-            <div style={{flex: 1}}>
-                {this._renderBody()}
-            </div>
         )
     }
 }

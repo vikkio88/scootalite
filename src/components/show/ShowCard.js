@@ -12,7 +12,6 @@ class ShowCardView extends Component {
                 shadow={1}
                 onClick={() => history.push(`/shows/${show.slug}`)}
                 style={{
-                    width: '300px',
                     height: '300px',
                     background: `url(${show.logo_url}) center / cover`,
                     margin: 'auto',
