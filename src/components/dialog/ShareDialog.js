@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Dialog, DialogActions, DialogContent, IconToggle} from 'react-mdl';
+import './ShareDialog.css';
 
 class ShareDialog extends Component {
     select = () => {
-        const range = document.createRange();
-        const selection = window.getSelection();
-        range.selectNodeContents(document.getElementById('shareLink'));
-        selection.removeAllRanges();
-        selection.addRange(range);
+        document.getElementById('shareLink').select();
     };
 
     render() {
@@ -16,17 +13,26 @@ class ShareDialog extends Component {
             <div>
                 <Dialog open={isActive}>
                     <DialogContent>
-                        <p id="shareLink" style={{fontSize: '15px'}} onClick={this.select}>
-                            {url}
-                        </p>
-                        Add time <IconToggle name="timelapse" defaultChecked={addTime} onChange={toggleTime}/>
+                        <div className="dialog-content-wrapper">
+                            <input
+                                type="text"
+                                value={url}
+                                readOnly
+                                id="shareLink"
+                                onClick={this.select}
+                                size={30}
+                            />
+                            <div className="time-button">Add time <IconToggle name="timelapse" defaultChecked={addTime} onChange={toggleTime}/>
+                            </div>
+                        </div>
                     </DialogContent>
                     <DialogActions>
-                        <Button type='button' onClick={onClose}>Close</Button>
+                        <Button raised type='button' onClick={onClose}>Close</Button>
                     </DialogActions>
                 </Dialog>
             </div>
         );
     }
 }
+
 export {ShareDialog};

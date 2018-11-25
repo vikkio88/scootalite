@@ -1,0 +1,14 @@
+.dialog-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#shareLink {
+    font-size: 18px;
+}
+
+.time-button {
+    padding-top: 30px;
+}
