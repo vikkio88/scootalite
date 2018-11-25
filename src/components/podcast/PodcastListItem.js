@@ -6,6 +6,8 @@ import {humanizeTimeDiffFromNow} from '../../libs/utils';
 import {selectPodcast, stop} from '../../store/actions';
 import './PodcastListItem.css';
 
+const MAX_TEXT_LENGTH = 140;
+
 
 class PodcastListItemView extends Component {
     isSelected = () => {
@@ -49,8 +51,11 @@ class PodcastListItemView extends Component {
                             {humanizeTimeDiffFromNow(podcast.date)}
                         </Tooltip>
                     </div>
-                    <p>
-                        {podcast.description}
+                    <p className="description">
+                        {
+                            podcast.description.length > MAX_TEXT_LENGTH ?
+                                podcast.description.substring(0, MAX_TEXT_LENGTH - 3) + "..." : podcast.description
+                        }
                     </p>
                     <div>
                         <Tooltip label={`Download ${podcast.name}`}>

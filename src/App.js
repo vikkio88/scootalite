@@ -29,9 +29,11 @@ class App extends Component {
                     <Layout fixedHeader>
                         <Header
                             style={{backgroundColor: '#eeeeee'}}
-                            title={<Link to="/">
-                                <img src={logo} style={{height: '50px'}} alt="scootalite logo"/>
-                            </Link>}
+                            title={(
+                                <Link to="/">
+                                    <img src={logo} style={{height: '50px'}} alt="scootalite logo"/>
+                                </Link>
+                            )}
                         >
                             <Navigation>
                                 <Tooltip label="Rss Feed Parser">

@@ -11,7 +11,7 @@ class About extends Component {
 
     render() {
         return (
-            <div>
+            <div className="about-content">
                 <div style={{textAlign: 'center'}}>
                     <h1 style={{marginBottom: '3px'}}>Scootalite</h1>
                     <strong>made with ♥ by <a href="https://vikkio.co" target="_blank"

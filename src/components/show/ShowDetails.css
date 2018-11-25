@@ -10,3 +10,9 @@
     padding: 0;
     text-align: justify;
 }
+
+div.bottom-of-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

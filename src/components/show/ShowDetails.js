@@ -64,7 +64,7 @@ class ShowDetailsView extends Component {
                             {show.description}
                         </p>
                     </CardText>
-                    <CardMenu style={{color: '#FF6749', backgroundColor:'#eeeeee', opacity:0.6 }}>
+                    <CardMenu style={{color: '#FF6749', backgroundColor: '#eeeeee', opacity: 0.6}}>
                         <Tooltip label={`${show.name} - website`}>
                             <a href={show.website} target="_blank">
                                 <IconButton name="link"/>
@@ -78,8 +78,10 @@ class ShowDetailsView extends Component {
                 <h4>Podcasts</h4>
                 <List>
                     {this._renderPodcasts()}
-                    {this._renderMoreButton()}
                 </List>
+                <div className="bottom-of-list">
+                    {this._renderMoreButton()}
+                </div>
             </div>
         );
     }

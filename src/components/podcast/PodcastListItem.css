@@ -30,3 +30,8 @@
 .selected-podcast {
     background-color: #eeeeee;
 }
+
+.description {
+    width: 70%;
+    margin: auto;
+}

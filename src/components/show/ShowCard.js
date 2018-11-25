@@ -14,7 +14,7 @@ class ShowCardView extends Component {
                 style={{
                     height: '300px',
                     background: `url(${show.logo_url}) center / cover`,
-                    margin: 'auto',
+                    margin: '10px',
                     cursor: 'pointer'
                 }}>
                 <CardTitle expand/>

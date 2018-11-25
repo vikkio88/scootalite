@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {ShowCard} from '../show';
-import {Spinner} from 'react-mdl';
 import Masonry from 'react-masonry-component';
 
 import {remoteFetchTrends} from '../../store/actions';
 
 import './TrendingShows.css';
+import {Spinner} from "../common";
 
 
 class TrendingShowsView extends Component {
@@ -26,7 +26,7 @@ class TrendingShowsView extends Component {
 
         return (
             <Masonry>
-                {this.props.trendingShows.map(s => <ShowCard key={s.id} show={s}/>)}
+                {trendingShows.map(s => <ShowCard key={s.id} show={s}/>)}
             </Masonry>
         )
     }

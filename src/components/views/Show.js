@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {remoteFetchShow, resetShow} from '../../store/actions';
-import {Spinner} from 'react-mdl';
 import {ShowDetails} from '../show';
+import {Spinner} from "../common";
 
 
 class ShowView extends Component {
