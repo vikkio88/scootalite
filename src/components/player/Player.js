@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import ReactPlayer from 'react-player';
 import moment from 'moment';
-import { Button, Icon } from "react-mdl";
+import {Button, Icon} from "react-mdl";
 import hotkeys from 'hotkeys-js';
-import { ShareDialog } from "../dialog";
+import {ShareDialog} from "../dialog";
 
-import { play, stop, pause } from '../../store/actions';
+import {play, stop, pause} from '../../store/actions';
 
 
 import './Player.css';
@@ -33,7 +33,7 @@ class PlayerView extends Component {
     }
 
     togglePlay = () => {
-        const { playing, play, pause, selectedPodcast } = this.props;
+        const {playing, play, pause, selectedPodcast} = this.props;
         if (!selectedPodcast) {
             return;
         }
@@ -65,34 +65,41 @@ class PlayerView extends Component {
             this.setState(state);
         }
     };
+    onStart = () => {
+        const {initialSeek} = this.props;
+        if (initialSeek) {
+            this.player.seekTo(initialSeek)
+        }
+    };
+
     onSeekStart = () => {
-        this.setState({ seeking: true });
+        this.setState({seeking: true});
     };
     onSeekChange = e => {
-        this.setState({ played: parseFloat(e.target.value) });
+        this.setState({played: parseFloat(e.target.value)});
     };
     onSeekStop = e => {
-        this.setState({ seeking: false });
+        this.setState({seeking: false});
         this.player.seekTo(parseFloat(e.target.value))
     };
     seek = diff => {
-        const { duration, played } = this.state;
+        const {duration, played} = this.state;
         this.player.seekTo(parseFloat(duration * played + diff));
     };
 
     toggleTime = () => {
-        this.setState({ addTime: !this.state.addTime });
+        this.setState({addTime: !this.state.addTime});
     };
 
     shareClose = () => {
-        this.setState({ shareActive: false });
+        this.setState({shareActive: false});
     };
 
     render() {
-        const { selectedPodcast, playing } = this.props;
-        const { played, duration, expanded, shareActive, addTime } = this.state;
+        const {selectedPodcast, playing} = this.props;
+        const {played, duration, expanded, shareActive, addTime} = this.state;
         if (!selectedPodcast) {
-            return <div />
+            return <div/>
         }
 
         return (
@@ -100,13 +107,13 @@ class PlayerView extends Component {
                 <div className="player-head">
                     <div className="player-head-actions">
                         <a onClick={this.stop}>
-                            <Icon className="player-control" name="close" />
+                            <Icon className="player-control" name="close"/>
                         </a>
-                        <a onClick={() => this.setState({ expanded: !expanded })}>
-                            <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'} />
+                        <a onClick={() => this.setState({expanded: !expanded})}>
+                            <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
                         </a>
-                        <a onClick={() => this.setState({ shareActive: true })}>
-                            <Icon className="player-control" name="share" />
+                        <a onClick={() => this.setState({shareActive: true})}>
+                            <Icon className="player-control" name="share"/>
                         </a>
                     </div>
                     <div className="player-head-title">
@@ -114,10 +121,10 @@ class PlayerView extends Component {
                     </div>
                 </div>
                 {expanded &&
-                    <div className="podcast-info">
-                        <p className="podcast-title">{`${selectedPodcast.show.name} - ${selectedPodcast.name}`}</p>
-                        <p className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</p>
-                    </div>
+                <div className="podcast-info">
+                    <p className="podcast-title">{`${selectedPodcast.show.name} - ${selectedPodcast.name}`}</p>
+                    <p className="time-indicator">{`${timeParse(duration * played)} - ${timeParse(duration)}`}</p>
+                </div>
                 }
                 <input
                     type='range' min={0} max={1} step='any'
@@ -129,20 +136,19 @@ class PlayerView extends Component {
                     onTouchEnd={this.onSeekStop}
                 />
                 {expanded &&
-                    <div>
-                        <Button ripple raised disabled={!playing} onClick={() => this.seek(-10)}>
-                            <Icon className="player-control" name="replay_10" />
-                        </Button>
-                        <Button ripple raised onClick={this.togglePlay}>
-                            <Icon className="player-control" name={!playing ? 'play_arrow' : 'pause'} />
-                        </Button>
-                        <Button ripple raised disabled={!playing} onClick={() => this.seek(10)}>
-                            <Icon className="player-control" name="forward_10" />
-                        </Button>
-                    </div>
+                <div>
+                    <Button ripple raised disabled={!playing} onClick={() => this.seek(-10)}>
+                        <Icon className="player-control" name="replay_10"/>
+                    </Button>
+                    <Button ripple raised onClick={this.togglePlay}>
+                        <Icon className="player-control" name={!playing ? 'play_arrow' : 'pause'}/>
+                    </Button>
+                    <Button ripple raised disabled={!playing} onClick={() => this.seek(10)}>
+                        <Icon className="player-control" name="forward_10"/>
+                    </Button>
+                </div>
                 }
                 <ReactPlayer
-
                     ref={player => {
                         this.player = player
                     }}
@@ -151,10 +157,10 @@ class PlayerView extends Component {
                     height='0'
                     url={selectedPodcast.file_url}
                     playing={playing}
-                    onReady={() => this.setState({ ready: true })}
+                    onReady={() => this.setState({ready: true})}
                     onProgress={this.onProgress}
-                    onDuration={duration => this.setState({ duration })}
-                    onStart={() => console.log('onStart')}
+                    onDuration={duration => this.setState({duration})}
+                    onStart={this.onStart}
                     onPlay={this.onPlay}
                     onPause={this.onPause}
                     onBuffer={() => console.log('onBuffer')}
@@ -168,7 +174,7 @@ class PlayerView extends Component {
                     toggleTime={this.toggleTime}
                     url={
                         `${window.location.protocol}//${window.location.host}/podcasts/${selectedPodcast.slug}${addTime ? `?t=${parseInt(duration * played, 10)}` : ''}`
-                    } />
+                    }/>
             </div>
         );
     }
@@ -176,11 +182,12 @@ class PlayerView extends Component {
 
 const timeParse = duration => moment.utc(duration * 1000).format("HH:mm:ss");
 
-const mapStateToProps = ({ player }) => {
-    const { selectedPodcast, playing } = player;
+const mapStateToProps = ({player}) => {
+    const {selectedPodcast, playing, initialSeek} = player;
     return {
         selectedPodcast,
-        playing
+        playing,
+        initialSeek
     };
 };
 
@@ -203,4 +210,4 @@ const Player = connect(
 )(PlayerView);
 
 
-export { Player };
+export {Player};

@@ -4,6 +4,7 @@ import {services} from '../../libs/services/';
 import {remoteFetchPodcast} from '../../store/actions';
 import './Podcast.css';
 import logo from '../../resources/images/main-logo.svg';
+import {valueFromQuery} from "../../libs/utils";
 
 class PodcastView extends Component {
     componentWillMount() {
@@ -11,8 +12,9 @@ class PodcastView extends Component {
     }
 
     componentDidMount() {
-        const {remoteFetchPodcast, match, history} = this.props;
-        remoteFetchPodcast(match.params.slug);
+        const {remoteFetchPodcast, match, history, location} = this.props;
+        const initialSeek = valueFromQuery(location.search, 't', v => parseInt(v, 10));
+        remoteFetchPodcast(match.params.slug, initialSeek);
         history.push(`/`);
     }
 
@@ -36,8 +38,8 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        remoteFetchPodcast(slug) {
-            dispatch(remoteFetchPodcast(slug));
+        remoteFetchPodcast(slug, initialSeek) {
+            dispatch(remoteFetchPodcast(slug, initialSeek));
         }
     };
 };

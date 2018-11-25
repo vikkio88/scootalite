@@ -6,10 +6,10 @@ export const FETCH_TRENDS_SUCCESS = 'fetch_trends_success';
 export const FETCH_SHOW_SUCCESS = 'fetch_show_success';
 export const FETCH_MORE_PODCASTS_SUCCESS = 'fetch_more_podcasts_success';
 
-export const selectPodcast = podcast => {
+export const selectPodcast = (podcast, initialSeek) => {
     return {
         type: SELECT_PODCAST,
-        data: podcast
+        data: {podcast, initialSeek}
     }
 };
 
@@ -20,12 +20,12 @@ export const remoteFetchTrends = () => {
     }
 };
 
-export const remoteFetchPodcast = (slug) => {
+export const remoteFetchPodcast = (slug, initialSeek = null) => {
     return (dispatch) => {
         services.podcast.getBySlug(slug)
             .then(podcast => {
                 if (podcast) {
-                    dispatch(selectPodcast(podcast));
+                    dispatch(selectPodcast(podcast, initialSeek));
                 } else {
                     dispatch(flashError("Invalid podcast url"));
                 }
