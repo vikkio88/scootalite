@@ -40,10 +40,10 @@ describe('Podcast History', () => {
 describe('Latest Podcast', () => {
     test('it returns the latest podcast that you were listening if it is set', () => {
         const historyHelperInstance = historyHelper(fakeCache());
-        const podcast = {slug: 'a', id: 221};
+        const podcast = {slug: 'a', id: 221, banana: 34};
         const seek = 123;
         historyHelperInstance.saveLastPlayed(podcast, seek);
-        expect(historyHelperInstance.getLastPlayed()).toEqual({podcast, seek});
+        expect(historyHelperInstance.getLastPlayed()).toEqual({podcast: {slug: podcast.slug, id: podcast.id}, seek});
     });
 
     test('it replace the latest podcast that you were listening if it is set on top of that one', () => {
@@ -56,4 +56,5 @@ describe('Latest Podcast', () => {
         historyHelperInstance.saveLastPlayed(podcast2);
         expect(historyHelperInstance.getLastPlayed()).toEqual({podcast: podcast2, seek: null});
     });
-});
+})
+;

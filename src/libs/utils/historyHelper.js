@@ -12,8 +12,8 @@ export const historyHelper = (cache = localStorage) => {
             const podcasts = cache.getItem(PODCAST_KEY) || [];
             return Array.isArray(podcasts) ? podcasts : JSON.parse(podcasts);
         },
-        saveLastPlayed(podcast, seek = null) {
-            cache.setItem(LATEST_KEY, JSON.stringify({podcast, seek}));
+        saveLastPlayed({id, slug}, seek = null) {
+            cache.setItem(LATEST_KEY, JSON.stringify({podcast: {id, slug}, seek}));
         },
         getLastPlayed() {
             const latest = cache.getItem(LATEST_KEY);
