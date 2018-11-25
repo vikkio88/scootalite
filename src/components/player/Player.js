@@ -91,6 +91,11 @@ class PlayerView extends Component {
         this.setState({addTime: !this.state.addTime});
     };
 
+    shareOpen = () => {
+        this.onPause();
+        this.setState({shareActive: true});
+    };
+
     shareClose = () => {
         this.setState({shareActive: false});
     };
@@ -112,7 +117,7 @@ class PlayerView extends Component {
                         <a onClick={() => this.setState({expanded: !expanded})}>
                             <Icon className="player-control" name={expanded ? 'expand_less' : 'expand_more'}/>
                         </a>
-                        <a onClick={() => this.setState({shareActive: true})}>
+                        <a onClick={this.shareOpen}>
                             <Icon className="player-control" name="share"/>
                         </a>
                     </div>
