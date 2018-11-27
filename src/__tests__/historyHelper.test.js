@@ -38,21 +38,32 @@ describe('Podcast History', () => {
 });
 
 describe('Latest Podcast', () => {
+    test('it returns null if there is no last podcast played', () => {
+        const historyHelperInstance = historyHelper(fakeCache());
+        expect(historyHelperInstance.getLastPlayed()).toEqual(null);
+    });
+
     test('it returns the latest podcast that you were listening if it is set', () => {
         const historyHelperInstance = historyHelper(fakeCache());
-        const podcast = {slug: 'a', id: 221, banana: 34};
+        const podcast = {slug: 'a', id: 221, name: 'some name', banana: 34};
         const seek = 123;
         historyHelperInstance.saveLastPlayed(podcast, seek);
-        expect(historyHelperInstance.getLastPlayed()).toEqual({podcast: {slug: podcast.slug, id: podcast.id}, seek});
+        expect(historyHelperInstance.getLastPlayed()).toEqual({
+            podcast: {
+                slug: podcast.slug,
+                id: podcast.id,
+                name: podcast.name
+            }, seek
+        });
     });
 
     test('it replace the latest podcast that you were listening if it is set on top of that one', () => {
         const historyHelperInstance = historyHelper(fakeCache());
-        const podcast = {slug: 'a', id: 221};
+        const podcast = {slug: 'a', id: 221, name: 'ciao'};
         const seek = 123;
         historyHelperInstance.saveLastPlayed(podcast, seek);
         expect(historyHelperInstance.getLastPlayed()).toEqual({podcast, seek});
-        const podcast2 = {slug: 'B', id: 223};
+        const podcast2 = {slug: 'B', id: 223, name: 'some other name'};
         historyHelperInstance.saveLastPlayed(podcast2);
         expect(historyHelperInstance.getLastPlayed()).toEqual({podcast: podcast2, seek: null});
     });
