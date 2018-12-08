@@ -6,13 +6,15 @@ import {Button, Icon} from "react-mdl";
 import hotkeys from 'hotkeys-js';
 import {ShareDialog} from "../dialog";
 
-import {play, stop, pause} from '../../store/actions';
+import {play, stop, pause, pushPlayed} from '../../store/actions';
 
 
 import './Player.css';
+import {historyHelper} from "../../libs/utils/historyHelper";
 
 class PlayerView extends Component {
     player = null;
+    registered = false;
     state = {
         duration: 0,
         progress: 0,
@@ -26,18 +28,30 @@ class PlayerView extends Component {
 
     componentWillMount() {
         hotkeys('p', () => this.togglePlay());
+        window.addEventListener('beforeunload', this.saveLastPlayed);
     }
 
     componentWillUnmount() {
         hotkeys.unbind('p');
+        window.removeEventListener('beforeunload', this.saveLastPlayed);
     }
 
+    saveLastPlayed = () => {
+        const {selectedPodcast} = this.props;
+        const {played, duration} = this.state;
+        historyHelper().saveLastPlayed(selectedPodcast, duration * played);
+    };
+
     togglePlay = () => {
-        const {playing, play, pause, selectedPodcast} = this.props;
+        const {playing, play, pause, selectedPodcast, pushToHistory} = this.props;
         if (!selectedPodcast) {
             return;
         }
         playing ? pause() : play();
+        if (!this.registered) {
+            pushToHistory(selectedPodcast);
+            this.registered = true;
+        }
     };
 
     play = () => {
@@ -45,6 +59,7 @@ class PlayerView extends Component {
     };
 
     stop = () => {
+        this.saveLastPlayed();
         this.props.stop();
     };
 
@@ -207,6 +222,9 @@ const mapDispatchToProps = dispatch => {
         stop() {
             dispatch(stop());
         },
+        pushToHistory(podcast) {
+            dispatch(pushPlayed(podcast))
+        }
     };
 };
 

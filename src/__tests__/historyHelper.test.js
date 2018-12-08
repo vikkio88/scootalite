@@ -68,6 +68,23 @@ describe('Latest Podcast', () => {
         });
     });
 
+    test('it clears the latest podcast that you were listening', () => {
+        const historyHelperInstance = historyHelper(fakeCache());
+        const podcast = {slug: 'a', id: 221, name: 'some name', banana: 34};
+        const seek = 123;
+        historyHelperInstance.saveLastPlayed(podcast, seek);
+        expect(historyHelperInstance.getLastPlayed()).toEqual({
+            podcast: {
+                slug: podcast.slug,
+                id: podcast.id,
+                name: podcast.name
+            }, seek
+        });
+
+        historyHelperInstance.deleteLastPlayed();
+        expect(historyHelperInstance.getLastPlayed()).toBe(null);
+    });
+
     test('it replace the latest podcast that you were listening if it is set on top of that one', () => {
         const historyHelperInstance = historyHelper(fakeCache());
         const podcast = {slug: 'a', id: 221, name: 'ciao'};

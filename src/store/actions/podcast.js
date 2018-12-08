@@ -1,10 +1,12 @@
 import {services} from '../../libs/services';
 import {flashError} from './app';
+import {historyHelper} from "../../libs/utils/historyHelper";
 
 export const SELECT_PODCAST = 'select_podcast';
 export const FETCH_TRENDS_SUCCESS = 'fetch_trends_success';
 export const FETCH_SHOW_SUCCESS = 'fetch_show_success';
 export const FETCH_MORE_PODCASTS_SUCCESS = 'fetch_more_podcasts_success';
+export const SYNC_HISTORY = 'sync_history';
 
 export const selectPodcast = (podcast, initialSeek) => {
     return {
@@ -77,4 +79,41 @@ export const fetchTrendsSuccess = data => {
         type: FETCH_TRENDS_SUCCESS,
         data
     }
+};
+
+export const loadHistory = () => {
+    const data = historyHelper().getHistory();
+    return {
+        type: SYNC_HISTORY,
+        data
+    };
+};
+
+export const deleteHistory = () => {
+    const helper = historyHelper();
+    helper.clearHistory();
+    const data = historyHelper().getHistory();
+    return {
+        type: SYNC_HISTORY,
+        data
+    };
+};
+
+export const pushPlayed = podcast => {
+    const helper = historyHelper();
+    helper.pushPodcast(podcast);
+
+    const data = helper.getHistory();
+    return {
+        type: SYNC_HISTORY,
+        data
+    };
+};
+
+export const resumeLastPlayed = (podcast, seek) => {
+    return dispatch => {
+        dispatch(remoteFetchPodcast(podcast.slug, seek));
+        historyHelper().deleteLastPlayed();
+        dispatch(loadHistory())
+    };
 };

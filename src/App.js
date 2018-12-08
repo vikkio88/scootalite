@@ -5,7 +5,7 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import {Content, Header, IconButton, Layout, Navigation, Tooltip} from 'react-mdl';
+import {Content, Header, Layout} from 'react-mdl';
 
 import {Player} from './components/player';
 import {SnackbarMessage} from './components/notification';
@@ -16,10 +16,13 @@ import logo from './resources/images/main-logo.svg';
 
 import {store} from './store';
 import {services} from './libs/services';
+import {loadHistory} from "./store/actions";
+import {Navbar} from "./components/common";
 
 class App extends Component {
     componentWillMount() {
         services.stats.push('MAIN');
+        store.dispatch(loadHistory());
     }
 
     render() {
@@ -28,25 +31,14 @@ class App extends Component {
                 <Router>
                     <Layout fixedHeader>
                         <Header
-                            style={{backgroundColor: '#eeeeee'}}
+                            style={{backgroundColor: '#eeeeee', paddingLeft: '10px'}}
                             title={(
                                 <Link to="/">
                                     <img src={logo} style={{height: '50px'}} alt="scootalite logo"/>
                                 </Link>
                             )}
                         >
-                            <Navigation>
-                                <Tooltip label="Rss Feed Parser">
-                                    <Link to="/parser">
-                                        <IconButton className="navigation-bar-link" name="rss_feed"/>
-                                    </Link>
-                                </Tooltip>
-                                <Tooltip label="About">
-                                    <Link to="/about">
-                                        <IconButton className="navigation-bar-link" name="info_outline"/>
-                                    </Link>
-                                </Tooltip>
-                            </Navigation>
+                            <Navbar/>
                         </Header>
                         <Player/>
                         <Content className="app-content">

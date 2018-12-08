@@ -21,3 +21,7 @@
         padding: 10px;
     }
 }
+
+.mdl-layout__header-row {
+    padding-left: 10px;
+}

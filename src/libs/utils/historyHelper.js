@@ -21,6 +21,15 @@ export const historyHelper = (cache = localStorage) => {
         getLastPlayed() {
             const latest = cache.getItem(LATEST_KEY);
             return latest ? JSON.parse(latest) : null;
+        },
+        deleteLastPlayed() {
+            cache.setItem(LATEST_KEY, JSON.stringify(null));
+        },
+        getHistory() {
+            return {
+                history: this.getPodcasts(),
+                lastPlayed: this.getLastPlayed()
+            }
         }
     };
 };
