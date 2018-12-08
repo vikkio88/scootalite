@@ -2,6 +2,9 @@ const PODCAST_KEY = 'POSTCASTS';
 const LATEST_KEY = 'LATEST';
 export const historyHelper = (cache = localStorage) => {
     return {
+        clearHistory() {
+            cache.setItem(PODCAST_KEY, JSON.stringify([]));
+        },
         pushPodcast({id}) {
             const podcasts = this.getPodcasts();
             podcasts.push(id);

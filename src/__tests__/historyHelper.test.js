@@ -20,6 +20,17 @@ describe('Podcast History', () => {
         expect(historyHelperInstance.getPodcasts()).toContain(fakePodcast.id);
     });
 
+    test('it clears history', () => {
+        const historyHelperInstance = historyHelper(fakeCache());
+        historyHelperInstance.pushPodcast(fakePodcast);
+        historyHelperInstance.pushPodcast({id: 2});
+        historyHelperInstance.pushPodcast({id: 3});
+        expect(historyHelperInstance.getPodcasts().length).toBe(3);
+
+        historyHelperInstance.clearHistory();
+        expect(historyHelperInstance.getPodcasts()).toEqual([]);
+    });
+
     test('it returns empty array if none have been set', () => {
         const historyHelperInstance = historyHelper(fakeCache());
         expect(historyHelperInstance.getPodcasts()).toEqual([]);
@@ -67,5 +78,4 @@ describe('Latest Podcast', () => {
         historyHelperInstance.saveLastPlayed(podcast2);
         expect(historyHelperInstance.getLastPlayed()).toEqual({podcast: podcast2, seek: null});
     });
-})
-;
+});
