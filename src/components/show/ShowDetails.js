@@ -30,11 +30,11 @@ class ShowDetailsView extends Component {
     };
 
     _renderPodcasts() {
-        const {show} = this.props;
+        const {show, history} = this.props;
         if (!show || !show.podcasts.length) {
             return <p>No podcasts</p>
         }
-        return show.podcasts.map(p => <PodcastListItem key={p.id} podcast={p}/>)
+        return show.podcasts.map(p => <PodcastListItem key={p.id} played={history.includes(p.id)} podcast={p}/>)
     }
 
     _renderMoreButton() {
@@ -88,9 +88,10 @@ class ShowDetailsView extends Component {
 }
 
 const mapStateToProps = ({podcasts}) => {
-    const {show} = podcasts;
+    const {show, history} = podcasts;
     return {
-        show
+        show,
+        history: history.history
     };
 };
 

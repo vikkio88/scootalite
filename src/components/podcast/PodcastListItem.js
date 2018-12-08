@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Button, Icon, Tooltip} from 'react-mdl';
+import classnames from 'classnames';
 
 import {humanizeTimeDiffFromNow} from '../../libs/utils';
 import {selectPodcast, stop} from '../../store/actions';
@@ -29,9 +30,13 @@ class PodcastListItemView extends Component {
     };
 
     render() {
-        const {podcast} = this.props;
+        const {podcast, played = false} = this.props;
         return (
-            <div className={`podcast-list-item ${this.isSelected() ? 'selected-podcast' : ''}`}>
+            <div className={classnames({
+                'podcast-list-item': true,
+                'selected-podcast': this.isSelected(),
+                'played-podcast': played
+            })}>
                 <div className="podcast-list-item-icon-container">
                     <Button
                         ripple

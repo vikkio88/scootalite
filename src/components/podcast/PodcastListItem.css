@@ -15,6 +15,7 @@
 .podcast-list-item-icon-container button {
     margin-left: 20px;
 }
+
 .podcast-list-item-icon-container i {
     font-size: 30px;
 }
@@ -29,6 +30,10 @@
 
 .selected-podcast {
     background-color: #eeeeee;
+}
+
+.played-podcast {
+    opacity: 0.5;
 }
 
 .description {
