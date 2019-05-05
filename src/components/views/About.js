@@ -14,7 +14,7 @@ class About extends Component {
             <div className="about-content">
                 <div style={{textAlign: 'center'}}>
                     <h1 style={{marginBottom: '3px'}}>Scootalite</h1>
-                    <strong>made with ♥ by <a href="https://vikkio.co" target="_blank"
+                    <strong>made with ♥ by <a href="https://vikkio.me" target="_blank"
                                               rel="noopener noreferrer">vikkio</a></strong>
                 </div>
                 <div style={{marginTop: '15px', textAlign: 'center'}}>

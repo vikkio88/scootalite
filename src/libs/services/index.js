@@ -2,7 +2,7 @@ import axios from 'axios';
 import {isProduction} from '../utils';
 
 const http = axios.create({
-    baseURL: 'https://vikkio.co/scootalite-api',
+    baseURL: 'https://vikkio.me/scootalite-api',
     timeout: 10000
 });
 
