@@ -58,7 +58,7 @@ class PodcastListItemView extends Component {
                     </div>
                     <p className="description">
                         {
-                            podcast.description.length > MAX_TEXT_LENGTH ?
+                            podcast.description && podcast.description.length > MAX_TEXT_LENGTH ?
                                 podcast.description.substring(0, MAX_TEXT_LENGTH - 3) + "..." : podcast.description
                         }
                     </p>
