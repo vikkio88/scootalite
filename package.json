@@ -19,7 +19,7 @@
     "validator": "^8.0.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.10"
+    "react-scripts": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,6 +27,18 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "mv build/index.html build/200.html && surge --domain scootalite.surge.sh build/",
-    "buildDeploy": "GENERATE_SOURCEMAP=false react-scripts build && yarn deploy"
+    "buildDeploy": "GENERATE_SOURCEMAP=false react-scripts build && npm run deploy"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
