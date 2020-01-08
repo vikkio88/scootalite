@@ -14,13 +14,13 @@ export default function game(state = initialState, action = {}) {
             if (!state.originalTitle) {
                 newState.originalTitle = document.title;
             }
-            document.title = `⏵ ${state.selectedPodcast.name}`;
+            document.title = `▶️ ${state.selectedPodcast.name}`;
             return {
                 ...state,
                 ...newState
             };
         case PAUSE:
-            document.title = `⏸ ${state.selectedPodcast.name}`;
+            document.title = `⏸️ ${state.selectedPodcast.name}`;
             return {
                 ...state,
                 playing: false
