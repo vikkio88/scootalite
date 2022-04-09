@@ -6,7 +6,7 @@
     "axios": "^0.21.2",
     "classnames": "^2.2.6",
     "hotkeys-js": "^2.0.3",
-    "moment": "^2.18.1",
+    "moment": "^2.29.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-masonry-component": "^6.2.1",
